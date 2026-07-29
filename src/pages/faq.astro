@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CTA from '../components/CTA.astro';
+import Icon from '../components/Icon.astro';
+
+/**
+ * The previous site's FAQ table was empty, so these are drafted from the
+ * questions clients actually ask. Review and edit before launch.
+ */
+const faqs = [
+  {
+    q: 'How do engagements usually start?',
+    a: 'With a free 30-minute call with a senior engineer — not a salesperson. We look at your current delivery path, ask about what breaks and how often, and tell you what we would prioritise. If it turns into a project, we follow up with a scoped proposal. If it does not, you still leave with a view of where your risk sits.',
+  },
+  {
+    q: 'Do you work with clients outside India?',
+    a: 'Yes. Most of our work is with teams in North America and Europe, including Bonnier Media, SimplerMedia Group and Eazybot. We overlap with US and European business hours and run engagements entirely remotely, with regular written updates rather than status meetings.',
+  },
+  {
+    q: 'Which cloud providers do you work with?',
+    a: 'Primarily AWS and Azure, including hybrid and multi-cloud architectures spanning both. We have delivered production workloads on EKS and AKS under unified tooling, and we work with on-premise to cloud migrations where the starting point is a data centre.',
+  },
+  {
+    q: 'Can you work with our existing DevOps team?',
+    a: 'That is the most common arrangement. We embed alongside your engineers rather than replacing them, and a deliberate part of every engagement is transferring what we build — documentation, runbooks, and pairing — so your team owns it once we step back.',
+  },
+  {
+    q: 'How do you handle compliance requirements like HIPAA or SOC 2?',
+    a: 'We design for the framework from the start rather than retrofitting. That means encryption at rest and in transit, centralised audit logging, access governance, and evidence generated automatically by the pipeline. We delivered a fully certified, audit-ready HIPAA telemedicine platform in three months.',
+  },
+  {
+    q: 'What does a penetration test include?',
+    a: 'Adversary-emulation testing scoped against MITRE ATT&CK across web applications, APIs, networks and cloud environments. Every finding ships with a working proof of concept and CWE or CVE mapping — nothing is reported as merely "potentially vulnerable". A retest after you remediate is included.',
+  },
+  {
+    q: 'How long does a typical engagement take?',
+    a: 'A vulnerability assessment or penetration test is usually two to four weeks. A CI/CD or IaC hardening project runs six to twelve weeks. Full cloud migrations depend heavily on what you are migrating, but we work incrementally so value lands well before the final cutover.',
+  },
+  {
+    q: 'Do you offer ongoing support after a project ends?',
+    a: 'Yes. Many clients continue with a retainer covering monitoring, incident response, periodic reassessment and advisory time. Others take full ownership after handover. Both are fine — we build so that either is possible.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Base
+  title="Frequently asked questions"
+  description="How ScionTech engagements work, which clouds and compliance frameworks we cover, how we work alongside your existing team, and what a typical project timeline looks like."
+  breadcrumbs={[{ name: 'FAQ', href: '/faq' }]}
+  schema={[schema]}
+>
+  <PageHero
+    eyebrow="FAQ"
+    title="Frequently asked questions"
+    lede="The questions we get asked most often. If yours is not here, ask us directly — we answer technical questions whether or not there is a project attached."
+  />
+
+  <section class="bg-white py-16 lg:py-24">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl divide-y divide-ink-100 border-y border-ink-100">
+        {
+          faqs.map((faq) => (
+            <details class="group py-6" name="faq">
+              <summary class="flex cursor-pointer list-none items-start justify-between gap-6 text-left">
+                <h2 class="text-lg font-semibold leading-snug tracking-[-0.01em] text-ink-900 transition-colors group-hover:text-accent-600">
+                  {faq.q}
+                </h2>
+                <span class="mt-0.5 shrink-0 text-ink-400 transition-transform duration-300 group-open:rotate-45">
+                  <Icon name="plus" size={20} />
+                </span>
+              </summary>
+              <p class="mt-4 max-w-2xl leading-relaxed text-ink-500">{faq.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    title="Still have a question?"
+    body="Send it over. A senior engineer will reply within one business day."
+    primaryLabel="Ask our team"
+  />
+</Base>

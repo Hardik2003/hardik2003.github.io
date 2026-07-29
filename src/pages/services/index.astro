@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import LogoMarquee from '../../components/LogoMarquee.astro';
+import CTA from '../../components/CTA.astro';
+import { SITE } from '../../consts';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'DevSecOps and cloud security services',
+  description:
+    'The full range of ScionTech services across DevSecOps, cloud security, secure CI/CD, containerisation, vulnerability assessment and penetration testing.',
+  url: `${SITE.url}/services`,
+  hasPart: services.map((s) => ({
+    '@type': 'Service',
+    name: s.data.title,
+    description: s.data.summary,
+    url: `${SITE.url}/services/${s.id}`,
+    provider: { '@id': `${SITE.url}/#organization` },
+  })),
+};
+---
+
+<Base
+  title="DevSecOps, cloud security and secure CI/CD services"
+  description="Nine engineering practices covering DevSecOps transformation, cloud security architecture, secure CI/CD, IaC scanning, Kubernetes hardening, penetration testing and incident response."
+  breadcrumbs={[{ name: 'Services', href: '/services' }]}
+  schema={[schema]}
+>
+  <PageHero
+    eyebrow="Services"
+    title="Nine practices, one secure pipeline"
+    lede="We work across the whole delivery path — from the architecture your workloads run on to the checks that gate every release. Engagements are scoped to what you actually need."
+  />
+
+  <section class="bg-white py-16 lg:py-24">
+    <div class="container-page">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((service, i) => <ServiceCard service={service} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <LogoMarquee label="Our valued clients" />
+  <CTA />
+</Base>

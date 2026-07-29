@@ -1,0 +1,155 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
+import CTA from '../../components/CTA.astro';
+import { SITE } from '../../consts';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const services = await getCollection('services');
+  return services.map((service) => ({ params: { slug: service.id }, props: { service } }));
+};
+
+type Props = { service: CollectionEntry<'services'> };
+
+const { service } = Astro.props;
+const { Content } = await render(service);
+const { title, summary, image, capabilities, seoTitle, seoDescription } = service.data;
+
+const others = (await getCollection('services'))
+  .filter((s) => s.id !== service.id)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: title,
+  description: summary,
+  url: `${SITE.url}/services/${service.id}`,
+  serviceType: title,
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: ['US', 'GB', 'EU', 'AE', 'AU', 'IN'],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: `${title} capabilities`,
+    itemListElement: capabilities.map((c) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: c },
+    })),
+  },
+};
+---
+
+<Base
+  title={seoTitle ?? title}
+  description={seoDescription ?? summary}
+  breadcrumbs={[
+    { name: 'Services', href: '/services' },
+    { name: title, href: `/services/${service.id}` },
+  ]}
+  schema={[schema]}
+>
+  <section class="border-b border-ink-100 bg-sand-100">
+    <div class="container-page py-16 lg:py-20">
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex flex-wrap items-center gap-2 text-sm text-ink-400">
+          <li><a href="/" class="transition-colors hover:text-ink-900">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/services" class="transition-colors hover:text-ink-900">Services</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-ink-600" aria-current="page">{title}</li>
+        </ol>
+      </nav>
+
+      <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div>
+          <h1 class="heading-1 text-balance">{title}</h1>
+          <p class="lede mt-6 max-w-xl text-pretty">{summary}</p>
+          <div class="mt-8">
+            <Button href="/contact" size="lg">Discuss this service</Button>
+          </div>
+        </div>
+
+        <div class="overflow-hidden rounded-2xl border border-ink-100 bg-white">
+          <Image
+            src={image}
+            alt={title}
+            widths={[480, 720, 960]}
+            sizes="(min-width: 1024px) 42vw, 100vw"
+            loading="eager"
+            class="aspect-[4/3] w-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 lg:py-24">
+    <div class="container-page">
+      <div class="grid gap-14 lg:grid-cols-[1fr_20rem] lg:gap-20">
+        <div
+          class="prose prose-lg max-w-none prose-headings:font-semibold prose-headings:tracking-[-0.02em] prose-headings:text-ink-900 prose-h2:mt-12 prose-h2:text-2xl prose-h3:text-xl prose-p:text-ink-600 prose-p:leading-relaxed prose-a:text-accent-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-ink-900 prose-li:text-ink-600"
+        >
+          <Content />
+        </div>
+
+        {
+          capabilities.length > 0 && (
+            <aside class="lg:sticky lg:top-28 lg:self-start">
+              <div class="card p-7">
+                <h2 class="text-xs font-medium uppercase tracking-[0.14em] text-ink-400">
+                  What this includes
+                </h2>
+                <ul class="mt-5 space-y-3.5">
+                  {capabilities.map((c) => (
+                    <li class="flex items-start gap-2.5 text-sm leading-relaxed text-ink-600">
+                      <Icon name="check" size={17} class="mt-0.5 shrink-0 text-accent-600" />
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="/contact"
+                  class="mt-7 flex items-center justify-center gap-2 rounded-lg bg-ink-900 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-600"
+                >
+                  Get a scoped proposal
+                  <Icon name="arrow-right" size={16} />
+                </a>
+              </div>
+            </aside>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-ink-100 bg-sand-100 py-16 lg:py-20">
+    <div class="container-page">
+      <h2 class="heading-3">Related services</h2>
+      <ul class="mt-8 grid gap-5 sm:grid-cols-3">
+        {
+          others.map((s) => (
+            <li>
+              <a href={`/services/${s.id}`} class="card card-hover group block p-6">
+                <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-50 text-accent-600">
+                  <Icon name={s.data.icon} size={19} />
+                </span>
+                <h3 class="mt-4 font-semibold leading-snug text-ink-900 transition-colors group-hover:text-accent-600">
+                  {s.data.shortTitle}
+                </h3>
+                <p class="mt-2 line-clamp-2 text-sm text-ink-500">{s.data.summary}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CTA />
+</Base>

@@ -1,0 +1,38 @@
+---
+import { STATS } from '../consts';
+
+interface Props {
+  invert?: boolean;
+}
+
+const { invert = true } = Astro.props;
+---
+
+<dl class="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
+  {
+    STATS.map((stat, i) => (
+      <div data-reveal data-reveal-delay={i * 80} class="text-center lg:text-left">
+        <dt class="sr-only">{stat.label}</dt>
+        <dd>
+          <span
+            class:list={[
+              'block text-4xl font-semibold tracking-[-0.03em] lg:text-5xl',
+              invert ? 'text-white' : 'text-ink-900',
+            ]}
+          >
+            {stat.value}
+            <span class={invert ? 'text-accent-400' : 'text-accent-600'}>{stat.suffix}</span>
+          </span>
+          <span
+            class:list={[
+              'mt-2.5 block text-sm',
+              invert ? 'text-ink-300' : 'text-ink-500',
+            ]}
+          >
+            {stat.label}
+          </span>
+        </dd>
+      </div>
+    ))
+  }
+</dl>

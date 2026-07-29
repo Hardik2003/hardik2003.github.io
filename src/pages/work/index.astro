@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import CTA from '../../components/CTA.astro';
+import { SITE } from '../../consts';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'ScionTech case studies',
+  url: `${SITE.url}/work`,
+  hasPart: work.map((w) => ({
+    '@type': 'Article',
+    headline: w.data.title,
+    description: w.data.summary,
+    url: `${SITE.url}/work/${w.id}`,
+  })),
+};
+---
+
+<Base
+  title="Case studies — DevOps and cloud security engagements"
+  description="Real engagements across healthcare, digital media, IoT and crypto trading — HIPAA-compliant AWS platforms, DDoS hardening, container migration and multi-cloud data pipelines."
+  breadcrumbs={[{ name: 'Work', href: '/work' }]}
+  schema={[schema]}
+>
+  <PageHero
+    eyebrow="Our work"
+    title="Outcomes, not deliverables"
+    lede="Five engagements, each measured against something the business cared about — uptime, latency, cost, or an audit that had to pass."
+  />
+
+  <section class="bg-white py-16 lg:py-24">
+    <div class="container-page">
+      <div class="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        {work.map((item, i) => <WorkCard item={item} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-ink-100 bg-sand-100 py-20 lg:py-24">
+    <div class="container-page">
+      <SectionHeading eyebrow="Client journeys" title="What our clients say" align="center" />
+      <div class="mt-14"><Testimonials /></div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>

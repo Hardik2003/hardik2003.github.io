@@ -1,0 +1,70 @@
+---
+/**
+ * Inline stroke icon set. Kept local rather than pulling an icon package so
+ * nothing ships to the client and the stroke weight stays consistent.
+ */
+interface Props {
+  name: string;
+  class?: string;
+  size?: number;
+  id?: string;
+}
+
+const { name, class: className = '', size = 24, id } = Astro.props;
+
+const paths: Record<string, string> = {
+  'git-branch':
+    '<circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="8" r="2.5"/><path d="M6 8.5v7"/><path d="M18 10.5c0 4-4 3.5-6 5.5"/>',
+  'cloud-lock':
+    '<path d="M17 16h1.5a3.5 3.5 0 0 0 .3-7A5.5 5.5 0 0 0 8.2 8.2 4 4 0 0 0 8 16h1"/><rect x="10" y="14" width="6" height="6" rx="1.2"/><path d="M11.6 14v-1.4a1.4 1.4 0 0 1 2.8 0V14"/>',
+  rocket:
+    '<path d="M12 3c3.5 2 5.5 5.5 5.5 9.5L15 15H9l-2.5-2.5C6.5 8.5 8.5 5 12 3Z"/><path d="M9 15l-2 4 4-2M15 15l2 4-4-2"/><circle cx="12" cy="10" r="1.4"/>',
+  'file-code':
+    '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/><path d="M10 12.5 8.5 14l1.5 1.5M14 12.5 15.5 14 14 15.5"/>',
+  box: '<path d="M20 8.5 12 4 4 8.5v7L12 20l8-4.5Z"/><path d="M4 8.5 12 13l8-4.5M12 13v7"/>',
+  activity: '<path d="M3 12h4l2.5-6.5L14 18l2.5-6H21"/>',
+  'shield-search':
+    '<path d="M12 3 5 6v5.5c0 4.2 2.9 8 7 9.5 1.3-.5 2.5-1.3 3.4-2.2"/><circle cx="16.5" cy="14.5" r="3"/><path d="m18.8 16.8 2.2 2.2"/>',
+  bug: '<rect x="8" y="8" width="8" height="11" rx="4"/><path d="M9 5.5 10.5 8M15 5.5 13.5 8M8 11H4.5M16 11H19.5M8 15H4.5M16 15H19.5M8.5 18.5 6 20.5M15.5 18.5 18 20.5"/>',
+  code: '<path d="m8.5 9-3.5 3 3.5 3M15.5 9l3.5 3-3.5 3M13.5 6l-3 12"/>',
+  'arrow-right': '<path d="M4 12h15M13 6l6 6-6 6"/>',
+  'arrow-up-right': '<path d="M7 17 17 7M8 7h9v9"/>',
+  check: '<path d="m4.5 12.5 5 5 10-11"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/>',
+  phone:
+    '<path d="M6 3h3l1.5 4.5-2 1.5a12 12 0 0 0 6.5 6.5l1.5-2L21 15v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4 5.2 2 2 0 0 1 6 3Z"/>',
+  'map-pin': '<path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/>',
+  linkedin:
+    '<rect x="3.5" y="3.5" width="17" height="17" rx="2.5"/><path d="M8 10.5V16M8 7.6v.1M12 16v-3.2a2 2 0 0 1 4 0V16"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  x: '<path d="M6 6l12 12M18 6 6 18"/>',
+  clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  calendar: '<rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3.5v3M16 3.5v3"/>',
+  target: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>',
+  layers: '<path d="m12 3 8.5 4.5L12 12 3.5 7.5 12 3Z"/><path d="m4 12 8 4.5 8-4.5M4 16.5 12 21l8-4.5"/>',
+  users:
+    '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.6M17.5 14.5a5.5 5.5 0 0 1 3 5"/>',
+  gauge: '<path d="M4 17a8 8 0 1 1 16 0"/><path d="m12 13 4-3.5"/><circle cx="12" cy="14" r="1.4"/>',
+  lock: '<rect x="4.5" y="10" width="15" height="10" rx="2"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/>',
+  quote: '<path d="M9.5 6C6.5 7.5 5 10 5 13v5h6v-6H8c0-2 .6-3.5 2.5-4.5ZM19.5 6C16.5 7.5 15 10 15 13v5h6v-6h-3c0-2 .6-3.5 2.5-4.5Z"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+};
+
+const d = paths[name] ?? paths['arrow-right'];
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+  id={id}
+  aria-hidden="true"
+  set:html={d}
+/>

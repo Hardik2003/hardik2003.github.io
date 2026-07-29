@@ -1,0 +1,134 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE, CONTACT } from '../consts';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  author?: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown>[];
+  /** Breadcrumb trail, excluding Home which is prepended automatically. */
+  breadcrumbs?: { name: string; href: string }[];
+}
+
+const { breadcrumbs = [], schema = [], ...head } = Astro.props;
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${SITE.url}/#organization`,
+  name: SITE.name,
+  legalName: SITE.legalName,
+  url: SITE.url,
+  logo: `${SITE.url}/logo.png`,
+  description: SITE.description,
+  foundingDate: String(SITE.foundingYear),
+  email: CONTACT.email,
+  telephone: CONTACT.phone,
+  sameAs: [CONTACT.linkedin],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: CONTACT.address.street,
+    addressLocality: CONTACT.address.locality,
+    addressRegion: CONTACT.address.region,
+    postalCode: CONTACT.address.postalCode,
+    addressCountry: CONTACT.address.country,
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: CONTACT.phone,
+    email: CONTACT.email,
+    contactType: 'sales',
+    areaServed: ['US', 'GB', 'EU', 'AE', 'AU', 'IN'],
+    availableLanguage: ['English'],
+  },
+};
+
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  url: SITE.url,
+  name: SITE.name,
+  publisher: { '@id': `${SITE.url}/#organization` },
+};
+
+const breadcrumbSchema =
+  breadcrumbs.length > 0
+    ? [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [{ name: 'Home', href: '/' }, ...breadcrumbs].map((c, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            name: c.name,
+            item: new URL(c.href, SITE.url).href,
+          })),
+        },
+      ]
+    : [];
+---
+
+<!doctype html>
+<html lang={SITE.locale} class="scroll-pt-24">
+  <head>
+    <BaseHead {...head} schema={[organization, website, ...breadcrumbSchema, ...schema]} />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-ink-900 focus:px-4 focus:py-2.5 focus:text-sm focus:font-medium focus:text-white"
+    >
+      Skip to content
+    </a>
+
+    <Header />
+
+    <main id="main" class="flex-1 pt-[4.5rem]">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <script>
+      // Progressive enhancement: reveal-on-scroll for [data-reveal] elements.
+      const reveal = () => {
+        const items = document.querySelectorAll<HTMLElement>('[data-reveal]');
+        if (!items.length) return;
+
+        if (
+          !('IntersectionObserver' in window) ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ) {
+          items.forEach((el) => el.classList.add('is-visible'));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target as HTMLElement;
+              const delay = Number(el.dataset.revealDelay ?? 0);
+              window.setTimeout(() => el.classList.add('is-visible'), delay);
+              observer.unobserve(el);
+            });
+          },
+          { rootMargin: '0px 0px -12% 0px', threshold: 0.1 }
+        );
+
+        items.forEach((el) => observer.observe(el));
+      };
+
+      reveal();
+    </script>
+  </body>
+</html>

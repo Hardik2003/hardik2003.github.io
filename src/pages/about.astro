@@ -1,0 +1,192 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Stats from '../components/Stats.astro';
+import LogoMarquee from '../components/LogoMarquee.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CTA from '../components/CTA.astro';
+import Icon from '../components/Icon.astro';
+import aboutImage from '../assets/site/about-hero.jpg';
+import { SITE } from '../consts';
+
+const principles = [
+  {
+    icon: 'target',
+    title: 'Understand and align',
+    body: 'We start by deeply understanding your business goals and technical challenges, aligning our DevOps strategy to support your growth with empathy and clarity.',
+  },
+  {
+    icon: 'layers',
+    title: 'Build with purpose',
+    body: 'With automation, security, and scalability at the core, we co-create infrastructure that is agile, cost-efficient, and tailored to your evolving needs.',
+  },
+  {
+    icon: 'users',
+    title: 'Empower and evolve',
+    body: 'We do not just deliver — we enable your teams with tools, best practices, and proactive support to ensure long-term success in a secure and resilient environment.',
+  },
+];
+
+const process = [
+  {
+    icon: 'shield-search',
+    title: 'Assess and architect',
+    body: 'We begin with a thorough audit of your existing infrastructure — on-premise or cloud — to design a scalable, secure, and future-ready architecture.',
+  },
+  {
+    icon: 'cloud-lock',
+    title: 'Cloud migration and modernisation',
+    body: 'We seamlessly migrate workloads to AWS, Azure, or hybrid environments, refactoring where needed to improve performance and resilience.',
+  },
+  {
+    icon: 'git-branch',
+    title: 'CI/CD and infrastructure automation',
+    body: 'We implement infrastructure as code, CI/CD pipelines, and environment automation for faster, reliable, and repeatable deployments.',
+  },
+  {
+    icon: 'lock',
+    title: 'Security and access governance',
+    body: 'From IAM to secrets management, we embed robust security and access control policies to safeguard systems and meet compliance standards.',
+  },
+  {
+    icon: 'activity',
+    title: 'Monitoring, alerts and incident response',
+    body: 'We enable proactive monitoring, real-time alerts, and automated remediation to keep your systems healthy and your teams informed.',
+  },
+  {
+    icon: 'gauge',
+    title: 'Cost optimisation and resource management',
+    body: 'Through automated checks, right-sizing, and usage tracking, we ensure your infrastructure is both efficient and cost-effective.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: `About ${SITE.name}`,
+  url: `${SITE.url}/about`,
+  mainEntity: { '@id': `${SITE.url}/#organization` },
+};
+---
+
+<Base
+  title="About us — the team behind your secure delivery pipeline"
+  description="ScionTech is a DevSecOps engineering team based in Rajkot, India, working with clients across healthcare, digital media, IoT and fintech to build secure, automated cloud infrastructure."
+  breadcrumbs={[{ name: 'About', href: '/about' }]}
+  schema={[schema]}
+>
+  <PageHero
+    eyebrow="About us"
+    title="Discover who we truly are"
+    lede="Explore our journey, values, and expertise. From innovation to excellence, we are committed to delivering impactful solutions that drive success."
+  />
+
+  <!-- Intro + image -->
+  <section class="bg-white py-16 lg:py-24">
+    <div class="container-page">
+      <div class="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+        <div data-reveal class="overflow-hidden rounded-2xl border border-ink-100">
+          <Image
+            src={aboutImage}
+            alt="The ScionTech team collaborating on infrastructure design"
+            widths={[560, 840, 1120]}
+            sizes="(min-width: 1024px) 46vw, 100vw"
+            class="aspect-[4/3] w-full object-cover"
+          />
+        </div>
+
+        <div data-reveal data-reveal-delay="80">
+          <p class="eyebrow">Our purpose and journey</p>
+          <h2 class="heading-2 mt-3">
+            Infrastructure that earns your team's confidence
+          </h2>
+          <p class="lede mt-6">
+            We are dedicated to driving innovation and helping brands thrive in the digital world
+            with tailored solutions that make an impact.
+          </p>
+          <p class="mt-5 leading-relaxed text-ink-500">
+            At ScionTech we believe in a collaborative approach that aligns with your vision. We
+            start by understanding your needs, objectives, and challenges, which lets us craft
+            custom strategies tailored to your business rather than reshaping your business around
+            a template.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats band -->
+  <section class="bg-ink-950 py-16 lg:py-20">
+    <div class="container-page">
+      <Stats />
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="bg-white py-20 lg:py-28">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="How we think"
+        title="Three commitments we hold to"
+        align="center"
+      />
+
+      <div class="mt-14 grid gap-5 lg:grid-cols-3">
+        {
+          principles.map((p, i) => (
+            <div data-reveal data-reveal-delay={i * 80} class="card p-8">
+              <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent-50 text-accent-600">
+                <Icon name={p.icon} size={21} />
+              </span>
+              <h3 class="mt-6 text-lg font-semibold tracking-[-0.01em] text-ink-900">{p.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-ink-500">{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Way of working -->
+  <section class="border-t border-ink-100 bg-sand-100 py-20 lg:py-28">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Our way of working"
+        title="Six stages, run in the open"
+        lede="You see the same board we do. No status theatre, no findings held back until the readout."
+      />
+
+      <ol class="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          process.map((step, i) => (
+            <li data-reveal data-reveal-delay={i * 60} class="relative pl-14">
+              <span class="absolute left-0 top-0 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-ink-200 bg-white text-accent-600">
+                <Icon name={step.icon} size={19} />
+              </span>
+              <span class="font-mono text-xs tabular-nums text-ink-400">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 class="mt-1.5 text-lg font-semibold tracking-[-0.01em] text-ink-900">
+                {step.title}
+              </h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-ink-500">{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <LogoMarquee label="Clients we value" />
+
+  <section class="bg-white py-20 lg:py-28">
+    <div class="container-page">
+      <SectionHeading eyebrow="Client journeys" title="What our clients say" align="center" />
+      <div class="mt-14"><Testimonials /></div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>

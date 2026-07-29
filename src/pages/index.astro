@@ -1,0 +1,204 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import Button from '../components/Button.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import WorkCard from '../components/WorkCard.astro';
+import BlogCard from '../components/BlogCard.astro';
+import Testimonials from '../components/Testimonials.astro';
+import LogoMarquee from '../components/LogoMarquee.astro';
+import Stats from '../components/Stats.astro';
+import CTA from '../components/CTA.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../consts';
+
+const services = (await getCollection('services'))
+  .filter((s) => s.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 6);
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'ScionTech services',
+  itemListElement: services.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Service',
+      name: s.data.title,
+      description: s.data.summary,
+      url: `${SITE.url}/services/${s.id}`,
+      provider: { '@id': `${SITE.url}/#organization` },
+    },
+  })),
+};
+
+const capabilities = [
+  { icon: 'lock', label: 'Security built into the pipeline, not bolted on after' },
+  { icon: 'gauge', label: 'Deployment times measured in minutes, not evenings' },
+  { icon: 'layers', label: 'Every environment described in code and reproducible' },
+  { icon: 'users', label: 'Your team keeps the knowledge after we hand over' },
+];
+---
+
+<Base
+  title={SITE.title}
+  description={SITE.description}
+  schema={[serviceSchema]}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-sand-100">
+    <div
+      class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ink-200 to-transparent"
+    >
+    </div>
+
+    <div class="container-page relative py-20 lg:py-28">
+      <div class="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+        <div>
+          <p
+            data-reveal
+            class="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-3.5 py-1.5 text-xs font-medium text-ink-600"
+          >
+            <span class="h-1.5 w-1.5 rounded-full bg-accent-500"></span>
+            DevSecOps · Cloud security · Secure CI/CD
+          </p>
+
+          <h1 data-reveal data-reveal-delay="60" class="heading-1 mt-6 text-balance">
+            Ship faster without shipping risk
+          </h1>
+
+          <p data-reveal data-reveal-delay="120" class="lede mt-6 max-w-xl text-pretty">
+            We design and implement DevSecOps practices that unify development, operations and
+            security into one continuous workflow — from secure CI/CD and infrastructure-as-code
+            scanning to penetration testing and runtime protection.
+          </p>
+
+          <div data-reveal data-reveal-delay="180" class="mt-9 flex flex-wrap gap-3">
+            <Button href="/contact" size="lg">Book a consultation</Button>
+            <Button href="/work" variant="secondary" size="lg" icon={false}>
+              See our case studies
+            </Button>
+          </div>
+
+          <ul data-reveal data-reveal-delay="240" class="mt-11 grid gap-3.5 sm:grid-cols-2">
+            {
+              capabilities.map((c) => (
+                <li class="flex items-start gap-2.5 text-sm text-ink-600">
+                  <Icon name="check" size={17} class="mt-0.5 shrink-0 text-accent-600" />
+                  {c.label}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div data-reveal data-reveal-delay="140">
+          <HeroVisual />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <LogoMarquee />
+
+  <!-- Services -->
+  <section class="bg-white py-20 lg:py-28">
+    <div class="container-page">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <SectionHeading
+          eyebrow="Services"
+          title="Nine practices, one secure pipeline"
+          lede="Each engagement is scoped to what your delivery path actually needs — we do not sell a package you have to grow into."
+        />
+        <Button href="/services" variant="secondary" class="hidden sm:inline-flex">
+          All services
+        </Button>
+      </div>
+
+      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((service, i) => <ServiceCard service={service} index={i} />)}
+      </div>
+
+      <div class="mt-10 sm:hidden">
+        <Button href="/services" variant="secondary">All services</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats band -->
+  <section class="bg-ink-950 py-16 lg:py-20">
+    <div class="container-page">
+      <Stats />
+    </div>
+  </section>
+
+  <!-- Case studies -->
+  <section class="bg-white py-20 lg:py-28">
+    <div class="container-page">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <SectionHeading
+          eyebrow="Case studies"
+          title="Outcomes, not deliverables"
+          lede="Every engagement below is measured against something the business cares about — uptime, latency, cost, or an audit that had to pass."
+        />
+        <Button href="/work" variant="secondary" class="hidden sm:inline-flex">
+          All case studies
+        </Button>
+      </div>
+
+      <div class="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        {work.map((item, i) => <WorkCard item={item} index={i} />)}
+      </div>
+
+      <div class="mt-10 sm:hidden">
+        <Button href="/work" variant="secondary">All case studies</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="border-t border-ink-100 bg-sand-100 py-20 lg:py-28">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Client journeys"
+        title="What our clients say"
+        align="center"
+      />
+      <div class="mt-14">
+        <Testimonials />
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section class="bg-white py-20 lg:py-28">
+    <div class="container-page">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <SectionHeading
+          eyebrow="Insights"
+          title="From our engineering desk"
+          lede="Practical writing on cloud architecture, container orchestration and securing what you ship."
+        />
+        <Button href="/blog" variant="secondary" class="hidden sm:inline-flex">
+          All articles
+        </Button>
+      </div>
+
+      <div class="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post, i) => <BlogCard post={post} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>

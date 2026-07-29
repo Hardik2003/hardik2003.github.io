@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import CTA from '../../components/CTA.astro';
+import { SITE } from '../../consts';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const [featured, ...rest] = posts;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: `${SITE.name} blog`,
+  url: `${SITE.url}/blog`,
+  publisher: { '@id': `${SITE.url}/#organization` },
+  blogPost: posts.map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.data.title,
+    description: p.data.description,
+    url: `${SITE.url}/blog/${p.id}`,
+    datePublished: p.data.pubDate.toISOString(),
+    author: { '@type': 'Person', name: p.data.author },
+  })),
+};
+---
+
+<Base
+  title="Blog — cloud, containers and security engineering"
+  description="Practical engineering writing from the ScionTech team on AWS architecture, container orchestration, infrastructure as code and securing what you ship."
+  breadcrumbs={[{ name: 'Blog', href: '/blog' }]}
+  schema={[schema]}
+>
+  <PageHero
+    eyebrow="Insights"
+    title="From our engineering desk"
+    lede="Practical writing on cloud architecture, container orchestration, infrastructure as code and securing what you ship."
+  />
+
+  <section class="bg-white py-16 lg:py-24">
+    <div class="container-page">
+      {
+        featured && (
+          <div class="border-b border-ink-100 pb-14">
+            <BlogCard post={featured} featured />
+          </div>
+        )
+      }
+
+      <div class="mt-14 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        {rest.map((post, i) => <BlogCard post={post} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    title="Have a question these posts did not answer?"
+    body="Send it over. We answer technical questions from engineers whether or not there is a project attached."
+    primaryLabel="Ask our team"
+  />
+</Base>

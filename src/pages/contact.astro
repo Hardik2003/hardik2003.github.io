@@ -1,0 +1,306 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, CONTACT } from '../consts';
+
+/**
+ * Static hosting has no backend, so the enquiry form posts to a third-party
+ * form service. Set PUBLIC_FORM_ENDPOINT in .env (see .env.example).
+ * Until it is set, the form falls back to a prefilled mailto link.
+ */
+const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+
+const { address } = CONTACT;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: `Contact ${SITE.name}`,
+  url: `${SITE.url}/contact`,
+  mainEntity: { '@id': `${SITE.url}/#organization` },
+};
+
+const services = [
+  'DevSecOps and secure CI/CD',
+  'Cloud security and architecture',
+  'Secure automation and pipelines',
+  'IaC security and configuration',
+  'Containers and Kubernetes',
+  'Monitoring and incident response',
+  'Cloud vulnerability assessment',
+  'Penetration testing',
+  'Code vulnerability assessment',
+  'Something else',
+];
+---
+
+<Base
+  title="Contact us — talk to a senior engineer"
+  description="Get in touch with ScionTech for DevSecOps, cloud security and secure CI/CD engagements. Free 30-minute assessment with a senior engineer, no obligation."
+  breadcrumbs={[{ name: 'Contact', href: '/contact' }]}
+  schema={[schema]}
+>
+  <section class="border-b border-ink-100 bg-sand-100">
+    <div class="container-page py-16 lg:py-20">
+      <div class="max-w-3xl">
+        <p class="eyebrow">Get in touch</p>
+        <h1 class="heading-1 mt-4 text-balance">Reach out to us</h1>
+        <p class="lede mt-6 text-pretty">
+          Tell us what you are building and where it hurts. We reply within one business day, and
+          the first conversation is a technical one — not a sales call.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 lg:py-24">
+    <div class="container-page">
+      <div class="grid gap-14 lg:grid-cols-[1fr_22rem] lg:gap-20">
+        <!-- Form -->
+        <div>
+          <form
+            id="enquiry-form"
+            method="POST"
+            action={formEndpoint || undefined}
+            class="space-y-6"
+          >
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div>
+                <label for="name" class="block text-sm font-medium text-ink-900">
+                  Your name <span class="text-accent-600">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  autocomplete="name"
+                  class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors placeholder:text-ink-300 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+                  placeholder="Jane Cooper"
+                />
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-medium text-ink-900">
+                  Work email <span class="text-accent-600">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors placeholder:text-ink-300 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+                  placeholder="jane@company.com"
+                />
+              </div>
+
+              <div>
+                <label for="company" class="block text-sm font-medium text-ink-900">Company</label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  autocomplete="organization"
+                  class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors placeholder:text-ink-300 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+                  placeholder="Acme Inc."
+                />
+              </div>
+
+              <div>
+                <label for="phone" class="block text-sm font-medium text-ink-900">Phone</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  autocomplete="tel"
+                  class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors placeholder:text-ink-300 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+                  placeholder="+1 555 000 0000"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="service" class="block text-sm font-medium text-ink-900">
+                What do you need help with?
+              </label>
+              <select
+                id="service"
+                name="service"
+                class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+              >
+                {services.map((s) => <option value={s}>{s}</option>)}
+              </select>
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-medium text-ink-900">
+                Project brief <span class="text-accent-600">*</span>
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                required
+                class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors placeholder:text-ink-300 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+                placeholder="What are you running today, what is going wrong, and what would a good outcome look like?"></textarea>
+            </div>
+
+            <!-- Honeypot: bots fill this, humans never see it -->
+            <div class="absolute -left-[9999px]" aria-hidden="true">
+              <label for="website">Do not fill this in</label>
+              <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="flex flex-wrap items-center gap-4">
+              <button
+                type="submit"
+                class="group inline-flex items-center gap-2 rounded-lg bg-ink-900 px-6 py-3.5 text-[0.9375rem] font-medium text-white transition-colors hover:bg-accent-600 disabled:opacity-60"
+              >
+                Submit enquiry
+                <Icon
+                  name="arrow-right"
+                  size={18}
+                  class="transition-transform duration-200 group-hover:translate-x-0.5"
+                />
+              </button>
+              <p class="text-sm text-ink-400">We reply within one business day.</p>
+            </div>
+
+            <p
+              id="form-status"
+              role="status"
+              aria-live="polite"
+              class="hidden rounded-lg px-4 py-3 text-sm"
+            >
+            </p>
+          </form>
+        </div>
+
+        <!-- Contact details -->
+        <aside class="space-y-5 lg:sticky lg:top-28 lg:self-start">
+          <a
+            href={`mailto:${CONTACT.email}`}
+            class="card card-hover group flex items-start gap-4 p-6"
+          >
+            <span
+              class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-50 text-accent-600 transition-colors group-hover:bg-accent-600 group-hover:text-white"
+            >
+              <Icon name="mail" size={20} />
+            </span>
+            <div class="min-w-0">
+              <h2 class="text-sm font-semibold text-ink-900">Email us</h2>
+              <p class="mt-1 break-words text-sm text-ink-500">{CONTACT.email}</p>
+            </div>
+          </a>
+
+          <a
+            href={`tel:${CONTACT.phoneHref}`}
+            class="card card-hover group flex items-start gap-4 p-6"
+          >
+            <span
+              class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-50 text-accent-600 transition-colors group-hover:bg-accent-600 group-hover:text-white"
+            >
+              <Icon name="phone" size={20} />
+            </span>
+            <div>
+              <h2 class="text-sm font-semibold text-ink-900">Call us</h2>
+              <p class="mt-1 text-sm text-ink-500">{CONTACT.phone}</p>
+            </div>
+          </a>
+
+          <div class="card flex items-start gap-4 p-6">
+            <span
+              class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-50 text-accent-600"
+            >
+              <Icon name="map-pin" size={20} />
+            </span>
+            <div>
+              <h2 class="text-sm font-semibold text-ink-900">Visit us</h2>
+              <address class="mt-1 text-sm not-italic leading-relaxed text-ink-500">
+                {address.street}<br />
+                {address.locality} — {address.postalCode}<br />
+                {address.region}, {address.countryName}
+              </address>
+            </div>
+          </div>
+
+          <a
+            href={CONTACT.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card card-hover group flex items-start gap-4 p-6"
+          >
+            <span
+              class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-50 text-accent-600 transition-colors group-hover:bg-accent-600 group-hover:text-white"
+            >
+              <Icon name="linkedin" size={20} />
+            </span>
+            <div>
+              <h2 class="text-sm font-semibold text-ink-900">Follow us</h2>
+              <p class="mt-1 text-sm text-ink-500">LinkedIn</p>
+            </div>
+          </a>
+        </aside>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script is:inline define:vars={{ formEndpoint, email: CONTACT.email }}>
+  const form = document.getElementById('enquiry-form');
+  const status = document.getElementById('form-status');
+
+  const show = (message, ok) => {
+    status.textContent = message;
+    status.className = ok
+      ? 'rounded-lg bg-accent-50 px-4 py-3 text-sm text-accent-800'
+      : 'rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700';
+  };
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+
+    // No form service configured yet — hand off to the user's mail client.
+    if (!formEndpoint) {
+      const body = [
+        `Name: ${data.get('name') ?? ''}`,
+        `Email: ${data.get('email') ?? ''}`,
+        `Company: ${data.get('company') ?? ''}`,
+        `Phone: ${data.get('phone') ?? ''}`,
+        `Service: ${data.get('service') ?? ''}`,
+        '',
+        String(data.get('message') ?? ''),
+      ].join('\n');
+
+      window.location.href =
+        `mailto:${email}?subject=${encodeURIComponent('Website enquiry')}` +
+        `&body=${encodeURIComponent(body)}`;
+      return;
+    }
+
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = true;
+    const original = button.innerHTML;
+    button.textContent = 'Sending…';
+
+    try {
+      const response = await fetch(formEndpoint, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (!response.ok) throw new Error(String(response.status));
+
+      form.reset();
+      show('Thanks — your enquiry is with us. We will reply within one business day.', true);
+    } catch {
+      show(`Something went wrong sending that. Please email us directly at ${email}.`, false);
+    } finally {
+      button.disabled = false;
+      button.innerHTML = original;
+    }
+  });
+</script>

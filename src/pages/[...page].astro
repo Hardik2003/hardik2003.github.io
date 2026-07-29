@@ -1,0 +1,45 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({ params: { page: page.id }, props: { page } }));
+};
+
+type Props = { page: CollectionEntry<'pages'> };
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+const { title, description, updatedDate } = page.data;
+---
+
+<Base
+  title={title}
+  description={description}
+  breadcrumbs={[{ name: title, href: `/${page.id}` }]}
+>
+  <section class="border-b border-ink-100 bg-sand-100">
+    <div class="container-page py-14 lg:py-18">
+      <div class="max-w-3xl">
+        <h1 class="heading-1">{title}</h1>
+        <p class="mt-5 text-sm text-ink-500">
+          Last updated <FormattedDate date={updatedDate} class="font-medium text-ink-900" />
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 lg:py-20">
+    <div class="container-page">
+      <div
+        class="prose max-w-3xl prose-headings:font-semibold prose-headings:tracking-[-0.02em] prose-headings:text-ink-900 prose-h2:mt-12 prose-h2:text-xl prose-p:text-ink-600 prose-p:leading-relaxed prose-a:text-accent-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-ink-900 prose-li:text-ink-600"
+      >
+        <Content />
+      </div>
+    </div>
+  </section>
+</Base>

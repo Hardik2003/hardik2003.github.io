@@ -1,0 +1,29 @@
+# Host-level 301s (Netlify / Cloudflare Pages syntax).
+# These preserve search rankings from the previous Laravel site.
+
+# Legal pages
+/policy                 /privacy-policy          301
+/termsconditions        /terms-and-conditions    301
+
+# Blog: the old site used /blog-details/{Title-With-Punctuation}
+/blogs                                                                                          /blog                                            301
+/blog-details/Containerization-with-AWS-ECS-vs.-EKS:-Choosing-the-Right-Solution-for-Your-Business  /blog/aws-ecs-vs-eks                          301
+/blog-details/Data-Security:-At-Rest-vs.-In-Transit                                             /blog/data-security-at-rest-vs-in-transit        301
+/blog-details/Navigating-the-Cloud:-A-Comprehensive-Guide-to-Modern-Migration-Strategies-and-Solutions  /blog/navigating-the-cloud-migration-strategies  301
+/blog-details/Terraform-with-Ansible-vs.-Chef:-Choosing-the-Right-Tool-for-Your-Cloud-Infrastructure    /blog/terraform-with-ansible-vs-chef      301
+/blog-details/*         /blog                    301
+/blogs/*                /blog/:splat             301
+/blog/:id               /blog/:id                200
+
+# Work
+/projects               /work                    301
+/projects/*             /work                    301
+/works/*                /work                    301
+
+# Forms and admin (the Laravel admin panel no longer exists)
+/send-mail-form         /contact                 301
+/inquery                /contact                 301
+/admin/*                /                        301
+
+# SPA-style fallback for anything else
+/*                      /404.html                404

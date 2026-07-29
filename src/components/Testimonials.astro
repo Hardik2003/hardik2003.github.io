@@ -1,0 +1,53 @@
+---
+import { TESTIMONIALS } from '../data/testimonials';
+import Icon from './Icon.astro';
+
+/**
+ * The avatars carried over from the old site are cropped company-logo
+ * screenshots rather than headshots, so they render badly in a circle.
+ * Initials until real portraits exist — then swap back to <Image src={t.avatar} />.
+ */
+const initials = (name: string) =>
+  name
+    .split(' ')
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+---
+
+<div class="grid gap-6 lg:grid-cols-2">
+  {
+    TESTIMONIALS.map((t, i) => (
+      <figure
+        data-reveal
+        data-reveal-delay={i * 80}
+        class="card flex flex-col p-7 lg:p-8"
+      >
+        <Icon name="quote" size={26} class="text-accent-200" />
+
+        <blockquote class="mt-5 flex-1">
+          <p class="text-lg font-medium leading-snug tracking-[-0.01em] text-ink-900">
+            {t.quote}
+          </p>
+          <p class="mt-4 text-sm leading-relaxed text-ink-500">{t.body}</p>
+        </blockquote>
+
+        <figcaption class="mt-7 flex items-center gap-3.5 border-t border-ink-100 pt-6">
+          <span
+            aria-hidden="true"
+            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-50 text-sm font-semibold text-accent-700"
+          >
+            {initials(t.name)}
+          </span>
+          <div class="min-w-0">
+            <p class="truncate text-sm font-semibold text-ink-900">{t.name}</p>
+            <p class="truncate text-sm text-ink-500">
+              {t.role}, {t.company}
+            </p>
+          </div>
+        </figcaption>
+      </figure>
+    ))
+  }
+</div>
