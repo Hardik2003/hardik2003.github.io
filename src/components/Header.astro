@@ -1,5 +1,5 @@
 ---
-import { NAV, CONTACT } from '../consts';
+import { NAV } from '../consts';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 
@@ -45,10 +45,10 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
 
       <div class="hidden items-center gap-3 lg:flex">
         <a
-          href={`tel:${CONTACT.phoneHref}`}
-          class="text-sm font-medium text-ink-500 transition-colors hover:text-ink-900"
+          href="/free-audit"
+          class="rounded-lg px-3.5 py-2 text-sm font-medium text-ink-600 transition-colors hover:text-ink-900"
         >
-          {CONTACT.phone}
+          Free audit
         </a>
         <a
           href="/contact"
@@ -98,16 +98,18 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
         }
       </ul>
       <a
+        href="/free-audit"
+        class="mt-4 flex items-center justify-center gap-2 rounded-lg border border-ink-200 px-4 py-3 text-sm font-medium text-ink-900"
+      >
+        Free AWS audit
+      </a>
+      <a
         href="/contact"
-        class="mt-4 flex items-center justify-center gap-2 rounded-lg bg-ink-900 px-4 py-3 text-sm font-medium text-white"
+        class="mt-2.5 flex items-center justify-center gap-2 rounded-lg bg-ink-900 px-4 py-3 text-sm font-medium text-white"
       >
         Consult our experts
         <Icon name="arrow-right" size={16} />
       </a>
-      <div class="mt-4 flex flex-col gap-1 px-3 text-sm text-ink-500">
-        <a href={`tel:${CONTACT.phoneHref}`} class="py-1">{CONTACT.phone}</a>
-        <a href={`mailto:${CONTACT.email}`} class="py-1">{CONTACT.email}</a>
-      </div>
     </nav>
   </div>
 </header>

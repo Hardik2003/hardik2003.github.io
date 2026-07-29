@@ -1,0 +1,255 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import LogoMarquee from '../components/LogoMarquee.astro';
+import { AUDITS, AUDIT_PRINCIPLES } from '../data/audits';
+import { SITE } from '../consts';
+
+const steps = [
+  {
+    title: 'You grant read-only access',
+    body: 'A scoped IAM role with the AWS-managed SecurityAudit and ViewOnlyAccess policies. Nothing more. You can revoke it the moment we finish.',
+  },
+  {
+    title: 'We run the assessment',
+    body: 'Over 2,300 automated checks across every region you use, then manual review by an engineer to separate the findings that matter from the noise.',
+  },
+  {
+    title: 'You get the executive report',
+    body: 'A written report with quantified findings, quick wins your team can action immediately, and a 90-day roadmap. Yours to keep either way.',
+  },
+  {
+    title: 'We walk you through it',
+    body: 'A 45-minute call with the engineer who ran the audit. Ask anything. There is no obligation to engage us afterwards.',
+  },
+];
+
+const severityStyles: Record<string, string> = {
+  Critical: 'bg-red-50 text-red-700',
+  High: 'bg-amber-50 text-amber-700',
+  Medium: 'bg-ink-50 text-ink-600',
+};
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Free AWS security and cost optimisation audit',
+  description:
+    'A no-obligation AWS audit covering over 2,300 security checks mapped to SOC 2, ISO 27001, GDPR, CIS and NIST, plus a cost optimisation review that identifies confirmed recoverable waste.',
+  url: `${SITE.url}/free-audit`,
+  provider: { '@id': `${SITE.url}/#organization` },
+  areaServed: ['US', 'GB', 'EU', 'AE', 'AU', 'IN'],
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    description: 'Complimentary AWS security and cost audit with a written executive report.',
+  },
+};
+---
+
+<Base
+  title="Free AWS security and cost audit"
+  description="A no-obligation AWS audit from ScionTech: 2,300+ security checks mapped to SOC 2, ISO 27001, GDPR, CIS and NIST, plus a cost review that finds confirmed recoverable waste. Read-only access, written executive report, yours to keep."
+  breadcrumbs={[{ name: 'Free audit', href: '/free-audit' }]}
+  schema={[schema]}
+>
+  <!-- Hero -->
+  <section class="border-b border-ink-100 bg-sand-100">
+    <div class="container-page py-16 lg:py-24">
+      <div class="max-w-3xl">
+        <p
+          class="inline-flex items-center gap-2 rounded-full border border-accent-200 bg-white px-3.5 py-1.5 text-xs font-medium text-accent-700"
+        >
+          <span class="h-1.5 w-1.5 rounded-full bg-accent-500"></span>
+          Free · No obligation · Read-only
+        </p>
+        <h1 class="heading-1 mt-6 text-balance">
+          Find out what your AWS account is really costing you
+        </h1>
+        <p class="lede mt-6 text-pretty">
+          Two audits, both free. One tells you where your money is going to waste. The other tells
+          you where you are exposed. You get the full executive report whether or not you go on to
+          work with us.
+        </p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <Button href="/contact" size="lg">Request your free audit</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The two audits -->
+  {
+    AUDITS.map((audit, index) => (
+      <section
+        id={audit.slug}
+        class:list={[
+          'scroll-mt-24 py-20 lg:py-28',
+          index % 2 === 0 ? 'bg-white' : 'border-y border-ink-100 bg-sand-100',
+        ]}
+      >
+        <div class="container-page">
+          <div class="grid gap-14 lg:grid-cols-[1fr_22rem] lg:gap-20">
+            <div>
+              <div data-reveal class="flex items-center gap-3">
+                <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent-50 text-accent-600">
+                  <Icon name={audit.icon} size={21} />
+                </span>
+                <p class="eyebrow">{audit.eyebrow}</p>
+              </div>
+
+              <h2 data-reveal class="heading-2 mt-5">
+                {audit.title}
+              </h2>
+              <p data-reveal class="lede mt-5 max-w-2xl">
+                {audit.summary}
+              </p>
+
+              <dl
+                data-reveal
+                class="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 border-y border-ink-100 py-8 sm:grid-cols-4"
+              >
+                {audit.scope.map((s) => (
+                  <div class="min-w-0">
+                    <dt class="sr-only">{s.label}</dt>
+                    <dd>
+                      <span class="block text-3xl font-semibold tracking-[-0.03em] text-ink-900">
+                        {s.value}
+                      </span>
+                      <span class="mt-1.5 block text-xs leading-snug text-ink-400">{s.label}</span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <h3 data-reveal class="heading-3 mt-12">
+                What we typically find
+              </h3>
+              <ul data-reveal class="mt-6 space-y-3">
+                {audit.sampleFindings.map((f) => (
+                  <li class="flex items-start gap-3.5 rounded-xl border border-ink-100 bg-white p-4">
+                    <span
+                      class:list={[
+                        'mt-0.5 shrink-0 rounded-md px-2 py-1 text-[0.6875rem] font-medium uppercase tracking-[0.06em]',
+                        severityStyles[f.severity],
+                      ]}
+                    >
+                      {f.severity}
+                    </span>
+                    <span class="text-sm leading-relaxed text-ink-600">{f.text}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <p
+                data-reveal
+                class="mt-7 border-l-2 border-accent-600 bg-white py-1 pl-5 text-sm leading-relaxed text-ink-600"
+              >
+                {audit.deliverable}
+              </p>
+            </div>
+
+            <aside data-reveal class="lg:sticky lg:top-28 lg:self-start">
+              <div class="card p-7">
+                <h3 class="text-xs font-medium uppercase tracking-[0.14em] text-ink-400">
+                  What the report includes
+                </h3>
+                <ul class="mt-5 space-y-3.5">
+                  {audit.includes.map((item) => (
+                    <li class="flex items-start gap-2.5 text-sm leading-relaxed text-ink-600">
+                      <Icon name="check" size={17} class="mt-0.5 shrink-0 text-accent-600" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="/contact"
+                  class="mt-7 flex items-center justify-center gap-2 rounded-lg bg-ink-900 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-600"
+                >
+                  Request this audit
+                  <Icon name="arrow-right" size={16} />
+                </a>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- How it works -->
+  <section class="bg-white py-20 lg:py-28">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="How it works"
+        title="Four steps, about a week end to end"
+        lede="No lengthy onboarding and no commercial conversation until you have the report in your hands."
+      />
+
+      <ol class="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          steps.map((step, i) => (
+            <li data-reveal data-reveal-delay={i * 70} class="relative">
+              <span class="font-mono text-xs tabular-nums text-accent-600">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span class="mt-4 block h-px w-full bg-ink-100" />
+              <h3 class="mt-5 text-lg font-semibold tracking-[-0.01em] text-ink-900">
+                {step.title}
+              </h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-ink-500">{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="border-t border-ink-100 bg-sand-100 py-20 lg:py-28">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="How we work"
+        title="What you can hold us to"
+        align="center"
+      />
+
+      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          AUDIT_PRINCIPLES.map((p, i) => (
+            <div data-reveal data-reveal-delay={i * 70} class="card p-7">
+              <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent-50 text-accent-600">
+                <Icon name={p.icon} size={21} />
+              </span>
+              <h3 class="mt-6 text-base font-semibold tracking-[-0.01em] text-ink-900">
+                {p.title}
+              </h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-ink-500">{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LogoMarquee label="Teams who have already had one" />
+
+  <!-- Closing CTA -->
+  <section class="bg-ink-950">
+    <div class="container-page py-20 lg:py-28">
+      <div data-reveal class="mx-auto max-w-2xl text-center">
+        <h2 class="heading-2 !text-white">Both audits, no charge</h2>
+        <p class="lede mt-5 !text-ink-300">
+          Tell us which one you want — or take both. Read-only access, a written report, and a call
+          with the engineer who ran it. Nothing else attached.
+        </p>
+        <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Button href="/contact" variant="invert" size="lg">Request your free audit</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

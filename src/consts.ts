@@ -35,6 +35,8 @@ export const NAV: { label: string; href: string }[] = [
   { label: 'Blog', href: '/blog' },
 ];
 
+/** Phone deliberately lives only on /contact and in the footer, not the header. */
+
 export const FOOTER_NAV: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: 'Company',
@@ -57,6 +59,7 @@ export const FOOTER_NAV: { title: string; links: { label: string; href: string }
   {
     title: 'Resources',
     links: [
+      { label: 'Free AWS audit', href: '/free-audit' },
       { label: 'FAQ', href: '/faq' },
       { label: 'Privacy policy', href: '/privacy-policy' },
       { label: 'Terms and conditions', href: '/terms-and-conditions' },
