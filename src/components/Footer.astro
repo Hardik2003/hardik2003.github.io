@@ -27,14 +27,14 @@ const { address } = CONTACT;
           </div>
           <a
             href={`tel:${CONTACT.phoneHref}`}
-            class="flex gap-3 text-ink-300 transition-colors hover:text-white"
+            class="flex gap-3 py-1 text-ink-300 transition-colors hover:text-white"
           >
             <Icon name="phone" size={18} class="shrink-0 text-ink-400" />
             {CONTACT.phone}
           </a>
           <a
             href={`mailto:${CONTACT.email}`}
-            class="flex gap-3 text-ink-300 transition-colors hover:text-white"
+            class="flex gap-3 py-1 text-ink-300 transition-colors hover:text-white"
           >
             <Icon name="mail" size={18} class="shrink-0 text-ink-400" />
             {CONTACT.email}
@@ -59,12 +59,12 @@ const { address } = CONTACT;
               <h2 class="text-xs font-medium uppercase tracking-[0.14em] text-ink-400">
                 {group.title}
               </h2>
-              <ul class="mt-5 space-y-3">
+              <ul class="mt-4 space-y-1">
                 {group.links.map((link) => (
                   <li>
                     <a
                       href={link.href}
-                      class="text-sm text-ink-300 transition-colors hover:text-white"
+                      class="inline-block py-1.5 text-sm text-ink-300 transition-colors hover:text-white"
                     >
                       {link.label}
                     </a>

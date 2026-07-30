@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { CLIENTS } from '../data/clients';
 
 interface Props {
@@ -7,6 +6,8 @@ interface Props {
 }
 
 const { label = 'Trusted by teams shipping in production' } = Astro.props;
+
+/** Duplicated so the marquee can loop seamlessly at -50%. */
 const track = [...CLIENTS, ...CLIENTS];
 ---
 
@@ -21,17 +22,11 @@ const track = [...CLIENTS, ...CLIENTS];
     <ul class="animate-marquee flex w-max items-center gap-14 pr-14">
       {
         track.map((client, i) => (
-          <li class="shrink-0">
-            <Image
-              src={client.logo}
-              alt={i < CLIENTS.length ? client.name : ''}
-              aria-hidden={i >= CLIENTS.length}
-              width={132}
-              height={44}
-              densities={[1, 2]}
-              loading="lazy"
-              class="h-11 w-auto object-contain opacity-55 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
-            />
+          <li
+            class="shrink-0 whitespace-nowrap text-lg font-medium tracking-[-0.01em] text-ink-300 transition-colors duration-300 hover:text-ink-700"
+            aria-hidden={i >= CLIENTS.length ? 'true' : undefined}
+          >
+            {client.name}
           </li>
         ))
       }

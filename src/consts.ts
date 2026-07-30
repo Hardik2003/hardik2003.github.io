@@ -93,13 +93,16 @@ export const FOOTER_NAV: { title: string; links: { label: string; href: string }
 ];
 
 /**
- * Headline metrics. These were rendering as "00+" on the previous site
- * because the odometer script never received values - set the real
- * numbers here and they will render server-side.
+ * Headline metrics.
+ *
+ * Every figure here is traceable to a specific case study, so it survives
+ * being questioned in a sales call. Deliberately not round counts of
+ * clients or projects: a prospect cannot verify "40+ clients", and an
+ * unverifiable number does less work than a specific outcome.
  */
-export const STATS: { value: number; suffix: string; label: string }[] = [
-  { value: 120, suffix: '+', label: 'Completion milestones' },
-  { value: 40, suffix: '+', label: 'Proud clients' },
-  { value: 85, suffix: '+', label: 'Completed initiatives' },
-  { value: 12, suffix: '+', label: 'Awards' },
+export const STATS: { value: string; suffix: string; label: string }[] = [
+  { value: '99.99', suffix: '%', label: 'Peak uptime delivered' },
+  { value: '10,000', suffix: '+', label: 'Device streams ingested' },
+  { value: '40', suffix: '%', label: 'Latency removed' },
+  { value: '20', suffix: '%', label: 'Infrastructure cost cut' },
 ];

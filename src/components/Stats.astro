@@ -3,9 +3,11 @@ import { STATS } from '../consts';
 
 interface Props {
   invert?: boolean;
+  /** Ties the figures back to the engagements they came from. */
+  caption?: boolean;
 }
 
-const { invert = true } = Astro.props;
+const { invert = true, caption = true } = Astro.props;
 ---
 
 <dl class="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
@@ -36,3 +38,24 @@ const { invert = true } = Astro.props;
     ))
   }
 </dl>
+
+{
+  caption && (
+    <p
+      data-reveal
+      data-reveal-delay="320"
+      class:list={['mt-12 text-sm', invert ? 'text-ink-400' : 'text-ink-500']}
+    >
+      Each figure comes from a specific engagement.{' '}
+      <a
+        href="/work"
+        class:list={[
+          'inline-block py-1 underline decoration-1 underline-offset-4 transition-colors',
+          invert ? 'text-ink-200 hover:text-white' : 'text-ink-900 hover:text-accent-600',
+        ]}
+      >
+        Read the case studies
+      </a>
+    </p>
+  )
+}

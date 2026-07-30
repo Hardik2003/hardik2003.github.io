@@ -9,7 +9,7 @@
 const metrics = [
   { label: 'Monthly cloud spend', value: '$18,240', delta: '−31%', good: true, icon: 'wallet' },
   { label: 'Deploys this week', value: '47', delta: '+12', good: true, icon: 'git-branch' },
-  { label: 'Availability', value: '99.98%', delta: 'SLO met', good: true, icon: 'activity' },
+  { label: 'Availability', value: '99.98%', delta: 'on SLO', good: true, icon: 'activity' },
   { label: 'Open findings', value: '3', delta: '−28', good: true, icon: 'cloud-lock' },
 ];
 
@@ -49,9 +49,21 @@ import Icon from './Icon.astro';
               <Icon name={m.icon} size={13} class="shrink-0" />
               {m.label}
             </dt>
-            <dd class="mt-1.5 flex items-baseline gap-1.5">
-              <span class="text-lg font-semibold tracking-[-0.02em] text-ink-900">{m.value}</span>
-              <span class="text-[0.6875rem] font-medium text-accent-700">{m.delta}</span>
+            <!--
+              Stacked below sm and inline from sm up. At 375px the widest
+              value and its delta need more room than the two-column card
+              gives, so letting them wrap produced two one-line cards and
+              two two-line ones. Stacking all four is consistent instead.
+            -->
+            <dd class="mt-1.5 sm:flex sm:items-baseline sm:gap-1.5">
+              <span
+                class="block whitespace-nowrap text-lg font-semibold tracking-[-0.02em] text-ink-900"
+              >
+                {m.value}
+              </span>
+              <span class="block whitespace-nowrap text-[0.6875rem] font-medium text-accent-700">
+                {m.delta}
+              </span>
             </dd>
           </div>
         ))

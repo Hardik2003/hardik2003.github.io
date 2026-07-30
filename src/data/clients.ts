@@ -1,19 +1,22 @@
-import type { ImageMetadata } from 'astro';
-import partner1 from '../assets/clients/partner1.jpg';
-import partner2 from '../assets/clients/partner2.jpg';
-import partner3 from '../assets/clients/partner3.jpg';
-import partner4 from '../assets/clients/partner4.jpg';
-import partner5 from '../assets/clients/partner5.jpg';
-import partner6 from '../assets/clients/partner6.jpg';
+export type Client = { name: string };
 
-export type Client = { name: string; logo: ImageMetadata };
-
-/** Names read from the logo artwork carried over from the previous site. */
+/**
+ * Rendered as typographic wordmarks rather than images.
+ *
+ * The originals were 147x48 JPEGs with no alpha, displayed at 132x44, so
+ * they were upscaled and visibly soft on any retina screen and carried
+ * baked-in white boxes against the page background. Set as type instead
+ * they are sharp at every density, weigh nothing, and stay readable to
+ * screen readers and to search engines.
+ *
+ * If clients supply proper SVG marks later, add a `logo` field back and
+ * render <Image> in LogoMarquee when it is present.
+ */
 export const CLIENTS: Client[] = [
-  { name: 'Cylogy', logo: partner1 },
-  { name: 'EazyBot', logo: partner2 },
-  { name: 'Red Wire Services', logo: partner3 },
-  { name: 'EnigmaPlus', logo: partner4 },
-  { name: 'Simpler Media Group', logo: partner5 },
-  { name: 'Astrolabe Analytics', logo: partner6 },
+  { name: 'Cylogy' },
+  { name: 'EazyBot' },
+  { name: 'Red Wire Services' },
+  { name: 'EnigmaPlus' },
+  { name: 'Simpler Media Group' },
+  { name: 'Astrolabe Analytics' },
 ];
