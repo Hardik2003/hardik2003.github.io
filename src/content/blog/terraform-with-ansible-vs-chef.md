@@ -4,8 +4,8 @@ description: A practical comparison of Terraform, Ansible and Chef across langua
 pubDate: 2025-03-23
 category: Technology
 author: Hardik Kamdar
-image: ../../assets/blog/terraform-ansible-chef.jpeg
-imageAlt: Whiteboard sketch comparing infrastructure as code tooling options
+image: ../../assets/blog/terraform-ansible-chef.png
+imageAlt: Three tooling options shown side by side for comparison
 readingTime: 7
 ---
 

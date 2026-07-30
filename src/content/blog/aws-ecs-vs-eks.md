@@ -5,7 +5,7 @@ pubDate: 2025-05-07
 category: Technology
 author: Hardik Kamdar
 image: ../../assets/blog/ecs-vs-eks.png
-imageAlt: Diagram comparing AWS ECS and EKS container orchestration architectures
+imageAlt: Two container orchestration options compared side by side
 readingTime: 9
 ---
 
