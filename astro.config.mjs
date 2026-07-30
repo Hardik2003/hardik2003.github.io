@@ -40,6 +40,17 @@ export default defineConfig({
     '/works/cloud-infrastructure-revamp': '/work',
     '/works/iac-configuration-management': '/work',
     '/works/proactive-monitoring-incident-response': '/work',
+
+    // Service pages retired when the lineup was rebalanced away from a
+    // security-only framing toward the full cloud and DevOps offering.
+    '/services/devsecops-transformation-secure-cicd': '/services/cicd-and-release-automation',
+    '/services/secure-automation-advanced-pipelines': '/services/cicd-and-release-automation',
+    '/services/cloud-security-architecture-revamp': '/services/cloud-security-and-compliance',
+    '/services/iac-security-configuration-management': '/services/infrastructure-as-code',
+    '/services/secure-containerization-orchestration': '/services/containers-and-kubernetes',
+    '/services/runtime-protection-monitoring-incident-response': '/services/observability-and-sre',
+    '/services/cloud-infrastructure-vulnerability-assessment': '/services/penetration-testing',
+    '/services/code-vulnerability-assessment': '/services/penetration-testing',
   },
   integrations: [
     mdx(),

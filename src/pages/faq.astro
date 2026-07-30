@@ -19,7 +19,11 @@ const faqs = [
   },
   {
     q: 'Which cloud providers do you work with?',
-    a: 'Primarily AWS and Azure, including hybrid and multi-cloud architectures spanning both. We have delivered production workloads on EKS and AKS under unified tooling, and we work with on-premise to cloud migrations where the starting point is a data centre.',
+    a: 'Primarily AWS and Azure, including hybrid and multi-cloud architectures spanning both. We have delivered production workloads on EKS and AKS under unified tooling, and we handle on-premise to cloud migrations where the starting point is a data centre.',
+  },
+  {
+    q: 'Do we have to take the whole set of services?',
+    a: 'No, and most clients do not. Engagements usually start with one thing — a migration, a cost review, a pipeline rebuild — and expand only if it makes sense. We scope to the problem in front of you rather than selling a bundle you grow into.',
   },
   {
     q: 'Can you work with our existing DevOps team?',
@@ -35,7 +39,7 @@ const faqs = [
   },
   {
     q: 'How long does a typical engagement take?',
-    a: 'A vulnerability assessment or penetration test is usually two to four weeks. A CI/CD or IaC hardening project runs six to twelve weeks. Full cloud migrations depend heavily on what you are migrating, but we work incrementally so value lands well before the final cutover.',
+    a: 'A cost optimisation review or penetration test is usually two to four weeks. A CI/CD or infrastructure-as-code project runs six to twelve weeks. Full cloud migrations depend heavily on what you are moving, but we work in waves so value lands well before the final cutover.',
   },
   {
     q: 'Do you offer ongoing support after a project ends?',
@@ -56,7 +60,7 @@ const schema = {
 
 <Base
   title="Frequently asked questions"
-  description="How ScionTech engagements work, which clouds and compliance frameworks we cover, how we work alongside your existing team, and what a typical project timeline looks like."
+  description="How ScionTech engagements work, which clouds we cover, how we work alongside your existing team, what a typical timeline looks like, and what ongoing support involves."
   breadcrumbs={[{ name: 'FAQ', href: '/faq' }]}
   schema={[schema]}
 >

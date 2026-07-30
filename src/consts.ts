@@ -2,9 +2,9 @@ export const SITE = {
   name: 'ScionTech',
   legalName: 'ScionTech',
   url: 'https://sciontech.co',
-  title: 'ScionTech — DevSecOps, cloud security and secure CI/CD',
+  title: 'ScionTech — Cloud and DevOps services on AWS and Azure',
   description:
-    'ScionTech designs and implements DevSecOps practices that unify development, operations and security into one continuous workflow — secure CI/CD, cloud architecture, IaC scanning, penetration testing and runtime protection.',
+    'ScionTech is a cloud and DevOps engineering partner. Migration and architecture, cost optimisation, CI/CD, Kubernetes, serverless, observability and cloud security — delivered by senior engineers on AWS and Azure.',
   locale: 'en',
   ogImage: '/og-default.png',
   foundingYear: 2019,
@@ -73,9 +73,11 @@ export const FOOTER_NAV: { title: string; links: { label: string; href: string }
   {
     title: 'Services',
     links: [
-      { label: 'DevSecOps and secure CI/CD', href: '/services/devsecops-transformation-secure-cicd' },
-      { label: 'Cloud security and architecture', href: '/services/cloud-security-architecture-revamp' },
-      { label: 'Penetration testing', href: '/services/penetration-testing' },
+      { label: 'Cloud migration', href: '/services/cloud-migration-and-modernisation' },
+      { label: 'Cost optimisation', href: '/services/aws-cost-optimisation' },
+      { label: 'CI/CD automation', href: '/services/cicd-and-release-automation' },
+      { label: 'Kubernetes', href: '/services/containers-and-kubernetes' },
+      { label: 'Cloud security', href: '/services/cloud-security-and-compliance' },
       { label: 'All services', href: '/services' },
     ],
   },

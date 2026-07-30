@@ -12,9 +12,9 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'DevSecOps and cloud security services',
+  name: 'Cloud and DevOps services',
   description:
-    'The full range of ScionTech services across DevSecOps, cloud security, secure CI/CD, containerisation, vulnerability assessment and penetration testing.',
+    'The full range of ScionTech cloud and DevOps services — migration, architecture, cost optimisation, CI/CD, Kubernetes, serverless, observability, managed DevOps and security.',
   url: `${SITE.url}/services`,
   hasPart: services.map((s) => ({
     '@type': 'Service',
@@ -27,15 +27,15 @@ const schema = {
 ---
 
 <Base
-  title="DevSecOps, cloud security and secure CI/CD services"
-  description="Nine engineering practices covering DevSecOps transformation, cloud security architecture, secure CI/CD, IaC scanning, Kubernetes hardening, penetration testing and incident response."
+  title="Cloud and DevOps services on AWS and Azure"
+  description="Eleven cloud and DevOps practices — migration and architecture, AWS cost optimisation, CI/CD, Kubernetes, serverless, infrastructure as code, observability, managed DevOps and cloud security."
   breadcrumbs={[{ name: 'Services', href: '/services' }]}
   schema={[schema]}
 >
   <PageHero
     eyebrow="Services"
-    title="Nine practices, one secure pipeline"
-    lede="We work across the whole delivery path — from the architecture your workloads run on to the checks that gate every release. Engagements are scoped to what you actually need."
+    title="The whole platform, one team"
+    lede="From the architecture your workloads run on to what it costs you each month. Engagements are scoped to what you actually need, and most clients start with one practice rather than all eleven."
   />
 
   <section class="bg-white py-16 lg:py-24">
