@@ -36,10 +36,19 @@ export const GA_MEASUREMENT_ID = 'G-YJ864EZPN0';
  * It cannot be used to read submissions or change the destination. Set
  * PUBLIC_WEB3FORMS_KEY to override it per environment.
  */
+const DEFAULT_WEB3FORMS_KEY = 'f6046b3c-7daa-4ca9-9206-9efbcf6290fd';
+
+/**
+ * `||` rather than `??` on purpose. An unset GitHub Actions variable and a
+ * blank line in .env both resolve to '' rather than undefined, and `??`
+ * would happily pass that empty string through — producing a form that
+ * renders fine but is rejected by Web3Forms on submit.
+ */
+const envKey = import.meta.env.PUBLIC_WEB3FORMS_KEY?.trim();
+
 export const WEB3FORMS = {
   endpoint: 'https://api.web3forms.com/submit',
-  accessKey:
-    import.meta.env.PUBLIC_WEB3FORMS_KEY ?? 'f6046b3c-7daa-4ca9-9206-9efbcf6290fd',
+  accessKey: envKey || DEFAULT_WEB3FORMS_KEY,
 } as const;
 
 export const NAV: { label: string; href: string }[] = [
