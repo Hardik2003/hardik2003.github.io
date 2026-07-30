@@ -20,6 +20,12 @@ const schema = {
   mainEntity: { '@id': `${SITE.url}/#organization` },
 };
 
+const fieldClass =
+  'mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors placeholder:text-ink-300 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600 aria-[invalid=true]:border-red-500 aria-[invalid=true]:focus:border-red-500 aria-[invalid=true]:focus:ring-red-500';
+
+/** Hidden until the validator fills it in. */
+const errorClass = 'mt-1.5 hidden text-xs text-red-600';
+
 const services = [
   'Free AWS security audit',
   'Free AWS cost optimisation audit',
@@ -72,83 +78,118 @@ const services = [
             <div class="grid gap-6 sm:grid-cols-2">
               <div>
                 <label for="name" class="block text-sm font-medium text-ink-900">
-                  Your name <span class="text-accent-600">*</span>
+                  Your name <span class="text-accent-600" aria-hidden="true">*</span>
                 </label>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   required
+                  minlength="2"
+                  maxlength="80"
                   autocomplete="name"
-                  class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors placeholder:text-ink-300 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+                  autocapitalize="words"
+                  spellcheck="false"
+                  aria-describedby="name-error"
+                  class={fieldClass}
                   placeholder="Jane Cooper"
                 />
+                <p id="name-error" class={errorClass} aria-live="polite"></p>
               </div>
 
               <div>
                 <label for="email" class="block text-sm font-medium text-ink-900">
-                  Work email <span class="text-accent-600">*</span>
+                  Work email <span class="text-accent-600" aria-hidden="true">*</span>
                 </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   required
+                  maxlength="254"
                   autocomplete="email"
-                  class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors placeholder:text-ink-300 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  inputmode="email"
+                  aria-describedby="email-error"
+                  class={fieldClass}
                   placeholder="jane@company.com"
                 />
+                <p id="email-error" class={errorClass} aria-live="polite"></p>
               </div>
 
               <div>
-                <label for="company" class="block text-sm font-medium text-ink-900">Company</label>
+                <label for="company" class="block text-sm font-medium text-ink-900">
+                  Company <span class="font-normal text-ink-400">(optional)</span>
+                </label>
                 <input
                   type="text"
                   id="company"
                   name="company"
+                  maxlength="100"
                   autocomplete="organization"
-                  class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors placeholder:text-ink-300 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+                  aria-describedby="company-error"
+                  class={fieldClass}
                   placeholder="Acme Inc."
                 />
+                <p id="company-error" class={errorClass} aria-live="polite"></p>
               </div>
 
               <div>
-                <label for="phone" class="block text-sm font-medium text-ink-900">Phone</label>
+                <label for="phone" class="block text-sm font-medium text-ink-900">
+                  Phone <span class="font-normal text-ink-400">(optional)</span>
+                </label>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
+                  maxlength="25"
                   autocomplete="tel"
-                  class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors placeholder:text-ink-300 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+                  inputmode="tel"
+                  pattern="[0-9+()\-.\s]{7,25}"
+                  aria-describedby="phone-error"
+                  class={fieldClass}
                   placeholder="+1 555 000 0000"
                 />
+                <p id="phone-error" class={errorClass} aria-live="polite"></p>
               </div>
             </div>
 
             <div>
               <label for="service" class="block text-sm font-medium text-ink-900">
-                What do you need help with?
+                What do you need help with? <span class="text-accent-600" aria-hidden="true">*</span>
               </label>
               <select
                 id="service"
                 name="service"
-                class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+                required
+                aria-describedby="service-error"
+                class={fieldClass}
               >
+                <option value="">Select an option…</option>
                 {services.map((s) => <option value={s}>{s}</option>)}
               </select>
+              <p id="service-error" class={errorClass} aria-live="polite"></p>
             </div>
 
             <div>
-              <label for="message" class="block text-sm font-medium text-ink-900">
-                Project brief <span class="text-accent-600">*</span>
-              </label>
+              <div class="flex items-baseline justify-between gap-4">
+                <label for="message" class="block text-sm font-medium text-ink-900">
+                  Project brief <span class="text-accent-600" aria-hidden="true">*</span>
+                </label>
+                <span id="message-count" class="text-xs tabular-nums text-ink-400">0 / 2000</span>
+              </div>
               <textarea
                 id="message"
                 name="message"
                 rows="6"
                 required
-                class="mt-2 block w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition-colors placeholder:text-ink-300 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+                minlength="20"
+                maxlength="2000"
+                aria-describedby="message-error"
+                class={fieldClass}
                 placeholder="What are you running today, what is going wrong, and what would a good outcome look like?"></textarea>
+              <p id="message-error" class={errorClass} aria-live="polite"></p>
             </div>
 
             <!-- Web3Forms honeypot: bots fill this, humans never see it -->
@@ -258,6 +299,135 @@ const services = [
   const button = form.querySelector('button[type="submit"]');
   const originalButton = button.innerHTML;
 
+  // Take over from native validation so the messages are ours and consistent
+  // across browsers. Left on in the markup so it still applies without JS.
+  form.setAttribute('novalidate', '');
+
+  const EMAIL = /^[^\s@]+@[^\s@,]+\.[A-Za-z]{2,}$/;
+  const PHONE_ALLOWED = /^[0-9+()\-.\s]+$/;
+  const HAS_LETTER = /\p{L}/u;
+  const LOOKS_LIKE_URL = /(https?:\/\/|www\.)/i;
+
+  const rules = {
+    name(v) {
+      if (!v) return 'Please enter your name.';
+      if (v.length < 2) return 'That looks too short — please enter your full name.';
+      if (v.length > 80) return 'Please keep this under 80 characters.';
+      if (!HAS_LETTER.test(v)) return 'Please enter a name using letters.';
+      if (LOOKS_LIKE_URL.test(v)) return 'Please enter a name, not a link.';
+      return '';
+    },
+    email(v) {
+      if (!v) return 'Please enter your email so we can reply.';
+      if (v.length > 254) return 'That email address is too long.';
+      if (!EMAIL.test(v)) return 'That does not look like a valid email address.';
+      return '';
+    },
+    company(v) {
+      if (v && v.length > 100) return 'Please keep this under 100 characters.';
+      return '';
+    },
+    phone(v) {
+      if (!v) return '';
+      if (!PHONE_ALLOWED.test(v)) return 'Phone can only contain digits, spaces and + ( ) - .';
+      const digits = v.replace(/\D/g, '');
+      if (digits.length < 7) return 'That phone number looks too short.';
+      if (digits.length > 15) return 'That phone number looks too long.';
+      return '';
+    },
+    service(v) {
+      if (!v) return 'Please choose what you need help with.';
+      return '';
+    },
+    message(v) {
+      if (!v) return 'Please tell us a little about your project.';
+      if (v.length < 20) return `A bit more detail please — ${20 - v.length} more characters.`;
+      if (v.length > 2000) return 'Please keep this under 2000 characters.';
+      if (!HAS_LETTER.test(v)) return 'Please describe your project in words.';
+      return '';
+    },
+  };
+
+  const fieldNames = Object.keys(rules);
+  const touched = new Set();
+
+  const setError = (name, message) => {
+    const input = form.elements[name];
+    const slot = document.getElementById(`${name}-error`);
+    if (!input || !slot) return;
+
+    if (message) {
+      input.setAttribute('aria-invalid', 'true');
+      slot.textContent = message;
+      slot.classList.remove('hidden');
+    } else {
+      input.removeAttribute('aria-invalid');
+      slot.textContent = '';
+      slot.classList.add('hidden');
+    }
+  };
+
+  const validate = (name) => {
+    const input = form.elements[name];
+    if (!input) return true;
+    const value = String(input.value ?? '').trim();
+    const message = rules[name](value);
+    setError(name, touched.has(name) ? message : '');
+    return !message;
+  };
+
+  fieldNames.forEach((name) => {
+    const input = form.elements[name];
+    if (!input) return;
+
+    // Only show an error once the visitor has finished with the field —
+    // flagging "invalid email" on the first keystroke is hostile.
+    input.addEventListener('blur', () => {
+      touched.add(name);
+      validate(name);
+    });
+    input.addEventListener('input', () => {
+      if (touched.has(name)) validate(name);
+    });
+    input.addEventListener('change', () => {
+      touched.add(name);
+      validate(name);
+    });
+  });
+
+  // Strip characters the phone field can never accept, as they are typed.
+  const phone = form.elements.phone;
+  phone.addEventListener('input', () => {
+    const cleaned = phone.value.replace(/[^0-9+()\-.\s]/g, '');
+    if (cleaned !== phone.value) {
+      const pos = phone.selectionStart - (phone.value.length - cleaned.length);
+      phone.value = cleaned;
+      phone.setSelectionRange(pos, pos);
+    }
+  });
+
+  // Live character count, and warn as the limit approaches.
+  const message = form.elements.message;
+  const counter = document.getElementById('message-count');
+  const updateCount = () => {
+    const n = message.value.length;
+    counter.textContent = `${n} / 2000`;
+    counter.classList.toggle('text-red-600', n > 1900);
+    counter.classList.toggle('text-ink-400', n <= 1900);
+  };
+  message.addEventListener('input', updateCount);
+  updateCount();
+
+  // A reset (ours after a send, or the browser restoring state) has to clear
+  // the counter and any errors too, or they linger against empty fields.
+  form.addEventListener('reset', () => {
+    window.setTimeout(() => {
+      touched.clear();
+      fieldNames.forEach((n) => setError(n, ''));
+      updateCount();
+    }, 0);
+  });
+
   const show = (message, ok) => {
     status.textContent = message;
     status.className = ok
@@ -268,7 +438,30 @@ const services = [
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
+    // Guard against a double submit while a request is in flight.
+    if (button.disabled) return;
+
+    // Validate everything, then send focus to the first problem.
+    fieldNames.forEach((n) => touched.add(n));
+    const invalid = fieldNames.filter((n) => !validate(n));
+
+    if (invalid.length > 0) {
+      const first = form.elements[invalid[0]];
+      first.focus({ preventScroll: true });
+      first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      show(
+        invalid.length === 1
+          ? 'One field needs attention before we can send this.'
+          : `${invalid.length} fields need attention before we can send this.`,
+        false
+      );
+      return;
+    }
+
     const data = new FormData(form);
+
+    // Normalise whitespace so trailing spaces do not reach the inbox.
+    fieldNames.forEach((n) => data.set(n, String(data.get(n) ?? '').trim()));
 
     // Make the notification email useful at a glance, and let a plain
     // "Reply" in the inbox go straight back to the enquirer.
@@ -292,6 +485,9 @@ const services = [
 
       if (response.ok && result.success) {
         form.reset();
+        touched.clear();
+        fieldNames.forEach((n) => setError(n, ''));
+        updateCount();
         show('Thanks — your enquiry is with us. We will reply within one business day.', true);
       } else {
         show(
