@@ -3,7 +3,7 @@ title: Containerising CMSWire and Reworked on AWS Fargate
 client: SimplerMedia Group
 sector: Digital media
 summary: Re-engineering a legacy EC2 setup into containers on Fargate, cutting operational costs by 20% and halving deployment times.
-image: ../../assets/work/digital-media-simplermedia.jpg
+image: ../../assets/work/digital-media-simplermedia.png
 date: 2025-06-02
 order: 4
 tags: [SecurityHub, Containerization]
