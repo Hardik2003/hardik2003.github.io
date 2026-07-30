@@ -1,0 +1,42 @@
+---
+import Testimonials from './Testimonials.astro';
+
+/**
+ * Social proof gets the one saturated band on the site.
+ *
+ * accent-600 rather than the brighter accent-500: at full-bleed section
+ * scale the mid blue overpowers the restrained palette, and neither the
+ * accent eyebrow nor the near-black heading has usable contrast on it.
+ * The deeper blue carries white text properly and still reads as brand.
+ *
+ * It is also deliberately not the ink-950 used by the stats and closing
+ * CTA bands, so the page alternates between three surfaces rather than
+ * repeating the same dark one.
+ */
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  class?: string;
+}
+
+const {
+  eyebrow = 'Client journeys',
+  title = 'What our clients say',
+  class: className = '',
+} = Astro.props;
+---
+
+<section class:list={['bg-accent-600', className]}>
+  <div class="container-page py-20 lg:py-28">
+    <div data-reveal class="mx-auto max-w-2xl text-center">
+      <p class="text-xs font-medium uppercase tracking-[0.14em] text-accent-100">
+        {eyebrow}
+      </p>
+      <h2 class="heading-2 mt-3 !text-white">{title}</h2>
+    </div>
+
+    <div class="mt-14">
+      <Testimonials />
+    </div>
+  </div>
+</section>

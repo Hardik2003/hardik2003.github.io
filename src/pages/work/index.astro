@@ -3,8 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import WorkCard from '../../components/WorkCard.astro';
-import Testimonials from '../../components/Testimonials.astro';
-import SectionHeading from '../../components/SectionHeading.astro';
+import TestimonialsSection from '../../components/TestimonialsSection.astro';
 import CTA from '../../components/CTA.astro';
 import { SITE } from '../../consts';
 
@@ -44,12 +43,7 @@ const schema = {
     </div>
   </section>
 
-  <section class="border-t border-ink-100 bg-sand-100 py-20 lg:py-24">
-    <div class="container-page">
-      <SectionHeading eyebrow="Client journeys" title="What our clients say" align="center" />
-      <div class="mt-14"><Testimonials /></div>
-    </div>
-  </section>
+  <TestimonialsSection />
 
   <CTA />
 </Base>

@@ -5,7 +5,7 @@ import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import Stats from '../components/Stats.astro';
 import LogoMarquee from '../components/LogoMarquee.astro';
-import Testimonials from '../components/Testimonials.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
 import CTA from '../components/CTA.astro';
 import Icon from '../components/Icon.astro';
 import aboutImage from '../assets/site/about-hero.jpg';
@@ -100,7 +100,7 @@ const schema = {
         <div data-reveal data-reveal-delay="80">
           <p class="eyebrow">Our purpose and journey</p>
           <h2 class="heading-2 mt-3">
-            A cloud team without the headcount
+            Four specialisms, one engagement
           </h2>
           <p class="lede mt-6">
             Most teams do not need a cloud architect, an SRE, a FinOps analyst and a security
@@ -181,12 +181,7 @@ const schema = {
 
   <LogoMarquee label="Clients we value" />
 
-  <section class="bg-white py-20 lg:py-28">
-    <div class="container-page">
-      <SectionHeading eyebrow="Client journeys" title="What our clients say" align="center" />
-      <div class="mt-14"><Testimonials /></div>
-    </div>
-  </section>
+  <TestimonialsSection />
 
   <CTA />
 </Base>

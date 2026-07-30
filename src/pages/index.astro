@@ -8,7 +8,7 @@ import SectionHeading from '../components/SectionHeading.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import WorkCard from '../components/WorkCard.astro';
 import BlogCard from '../components/BlogCard.astro';
-import Testimonials from '../components/Testimonials.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
 import LogoMarquee from '../components/LogoMarquee.astro';
 import Stats from '../components/Stats.astro';
 import CTA from '../components/CTA.astro';
@@ -75,14 +75,14 @@ const capabilities = [
           </p>
 
           <h1 data-reveal data-reveal-delay="60" class="heading-1 mt-6 text-balance">
-            Cloud infrastructure your team can rely on
+            The cloud team you don't have to hire
           </h1>
 
           <p data-reveal data-reveal-delay="120" class="lede mt-6 max-w-xl text-pretty">
-            We are the engineering partner for teams running on AWS, Azure and GCP - migration
-            and architecture, cost optimisation, CI/CD, Kubernetes and serverless, observability
-            and security. We also work with DigitalOcean and Linode for leaner setups. One team
-            across the whole platform, not a specialist for each piece.
+            Senior cloud and DevOps engineers, on hand when the work calls for them. Migration and
+            architecture, cost optimisation, CI/CD, Kubernetes and serverless, observability and
+            security, across AWS, Azure and GCP. One team for the whole platform, not a specialist
+            for each piece.
           </p>
 
           <div data-reveal data-reveal-delay="180" class="mt-9 flex flex-wrap gap-3">
@@ -170,19 +170,7 @@ const capabilities = [
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="border-t border-ink-100 bg-sand-100 py-20 lg:py-28">
-    <div class="container-page">
-      <SectionHeading
-        eyebrow="Client journeys"
-        title="What our clients say"
-        align="center"
-      />
-      <div class="mt-14">
-        <Testimonials />
-      </div>
-    </div>
-  </section>
+  <TestimonialsSection />
 
   <!-- Blog -->
   <section class="bg-white py-20 lg:py-28">
