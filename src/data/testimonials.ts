@@ -24,7 +24,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     quote: 'DevOps that keeps our digital media running smoothly',
-    body: 'ScionTech helped us modernize our infrastructure and eliminate deployment bottlenecks. Their DevOps solutions brought speed, stability, and automation to our workflows — critical for a fast-paced digital media environment. We now operate with greater agility and confidence.',
+    body: 'ScionTech helped us modernize our infrastructure and eliminate deployment bottlenecks. Their DevOps solutions brought speed, stability, and automation to our workflows - critical for a fast-paced digital media environment. We now operate with greater agility and confidence.',
     name: 'Brice Dunwoodie',
     role: 'CEO',
     company: 'Simplermedia Group',

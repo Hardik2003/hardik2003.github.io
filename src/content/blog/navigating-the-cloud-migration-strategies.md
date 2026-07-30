@@ -82,6 +82,6 @@ Distribute workloads across providers to avoid vendor lock-in, and combine legac
 
 ## Conclusion
 
-Cloud migration is not just a trend — it is a strategic evolution enabling organisations to unlock scalability, efficiency, and innovation. By embracing modern migration strategies such as container orchestration and serverless computing, and adhering to best practices, businesses can navigate the complexities of migration and realise the full benefits of the cloud.
+Cloud migration is not just a trend - it is a strategic evolution enabling organisations to unlock scalability, efficiency, and innovation. By embracing modern migration strategies such as container orchestration and serverless computing, and adhering to best practices, businesses can navigate the complexities of migration and realise the full benefits of the cloud.
 
 [Talk to us](/contact) about planning a secure, incremental migration.

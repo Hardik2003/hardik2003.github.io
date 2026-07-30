@@ -1,7 +1,7 @@
 ---
 title: AWS cost optimisation and FinOps
 shortTitle: Cost optimisation and FinOps
-summary: Find the spend that buys you nothing, then build the habits that stop it coming back — rightsizing, commitment planning, tagging and anomaly detection.
+summary: Find the spend that buys you nothing, then build the habits that stop it coming back - rightsizing, commitment planning, tagging and anomaly detection.
 icon: wallet
 image: ../../assets/services/secure-automation.png
 order: 3
@@ -13,12 +13,12 @@ capabilities:
   - Storage lifecycle and tiering policies
   - Tagging strategy and per-team showback
   - Cost anomaly detection and budget alerting
-seoDescription: AWS cost optimisation and FinOps services — rightsizing, Savings Plans modelling, storage lifecycle policies, tagging and cost anomaly detection.
+seoDescription: AWS cost optimisation and FinOps services - rightsizing, Savings Plans modelling, storage lifecycle policies, tagging and cost anomaly detection.
 ---
 
 Cloud bills grow quietly. Nobody approves the increase; it accumulates from resources that were provisioned for a reason that has since disappeared.
 
-We find that spend, prove it against live usage, and remove it — then put the practices in place so it does not silently return.
+We find that spend, prove it against live usage, and remove it - then put the practices in place so it does not silently return.
 
 ## Confirmed, not estimated
 
@@ -28,7 +28,7 @@ The first pass usually finds the same categories: gateways provisioned for traff
 
 ## Then the structural savings
 
-Rightsizing and Graviton migration usually deliver more than the quick wins, but they need care — a change window, a rollback plan, and load testing where it matters. Commitment planning comes after that, because buying a Savings Plan against a workload you are about to halve in size locks in the wrong number.
+Rightsizing and Graviton migration usually deliver more than the quick wins, but they need care - a change window, a rollback plan, and load testing where it matters. Commitment planning comes after that, because buying a Savings Plan against a workload you are about to halve in size locks in the wrong number.
 
 Storage is consistently under-examined. Lifecycle policies, intelligent tiering on backup and log buckets, and cleaning up incomplete multipart uploads are unglamorous and reliably worthwhile.
 

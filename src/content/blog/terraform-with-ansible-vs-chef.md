@@ -1,6 +1,6 @@
 ---
 title: "Terraform with Ansible vs. Chef: choosing the right tool for your cloud infrastructure"
-description: A practical comparison of Terraform, Ansible and Chef across language, agent model, state management and multi-cloud support — and which combination fits your organisation's size and compliance needs.
+description: A practical comparison of Terraform, Ansible and Chef across language, agent model, state management and multi-cloud support - and which combination fits your organisation's size and compliance needs.
 pubDate: 2025-03-23
 category: Technology
 author: Hardik Kamdar
@@ -93,6 +93,6 @@ Choosing the right tool depends on your business needs, the complexity of your e
 - For complex, enterprise-grade automation with compliance, **Chef** is the way to go.
 - For the best of both worlds, **Terraform with Ansible** provides flexibility and efficiency.
 
-By selecting the right tool — or combination of tools — businesses can optimise their cloud infrastructure, improve efficiency, and enhance security.
+By selecting the right tool - or combination of tools - businesses can optimise their cloud infrastructure, improve efficiency, and enhance security.
 
 Want help deciding? [Talk to our team](/contact) about your environment.

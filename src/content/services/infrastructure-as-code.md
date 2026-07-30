@@ -1,7 +1,7 @@
 ---
 title: Infrastructure as code
 shortTitle: Infrastructure as code
-summary: Terraform and CloudFormation that your team can safely change — reusable modules, drift detection, and a plan output a reviewer can actually reason about.
+summary: Terraform and CloudFormation that your team can safely change - reusable modules, drift detection, and a plan output a reviewer can actually reason about.
 icon: file-code
 image: ../../assets/services/iac-security.png
 order: 7
@@ -13,7 +13,7 @@ capabilities:
   - Automated plan review in pull requests
   - Configuration management with Ansible
   - Policy enforcement with OPA and Sentinel
-seoDescription: Infrastructure as code services — Terraform and CloudFormation module design, state management, drift detection, automated plan review and Ansible configuration.
+seoDescription: Infrastructure as code services - Terraform and CloudFormation module design, state management, drift detection, automated plan review and Ansible configuration.
 ---
 
 Infrastructure as code only pays off if people trust it enough to use it. Plenty of teams have a Terraform repository and still make changes in the console, because the code is frightening to run.
@@ -26,11 +26,11 @@ We build composable modules with sensible defaults, so a new environment is a sm
 
 ## State, handled properly
 
-State is where Terraform hurts. Remote backends with locking, separated per environment so a staging mistake cannot damage production, and a clear convention for what belongs in which state file. We keep blast radius small — one state file for an entire estate means every change risks everything.
+State is where Terraform hurts. Remote backends with locking, separated per environment so a staging mistake cannot damage production, and a clear convention for what belongs in which state file. We keep blast radius small - one state file for an entire estate means every change risks everything.
 
 ## Reviews that mean something
 
-Plan output runs automatically on pull requests and posts as a comment, so a reviewer sees exactly what will change before approval. Policy checks run alongside — encryption required, public access denied, approved regions, tagging enforced — as testable rules rather than documented conventions.
+Plan output runs automatically on pull requests and posts as a comment, so a reviewer sees exactly what will change before approval. Policy checks run alongside - encryption required, public access denied, approved regions, tagging enforced - as testable rules rather than documented conventions.
 
 ## Drift is the quiet failure
 

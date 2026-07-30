@@ -2,9 +2,9 @@ export const SITE = {
   name: 'ScionTech',
   legalName: 'ScionTech',
   url: 'https://sciontech.co',
-  title: 'ScionTech — Cloud and DevOps services on AWS and Azure',
+  title: 'ScionTech - Cloud and DevOps services on AWS and Azure',
   description:
-    'ScionTech is a cloud and DevOps engineering partner. Migration and architecture, cost optimisation, CI/CD, Kubernetes, serverless, observability and cloud security — delivered by senior engineers on AWS and Azure.',
+    'ScionTech is a cloud and DevOps engineering partner. Migration and architecture, cost optimisation, CI/CD, Kubernetes, serverless, observability and cloud security - delivered by senior engineers on AWS and Azure.',
   locale: 'en',
   ogImage: '/og-default.png',
   foundingYear: 2019,
@@ -31,7 +31,7 @@ export const GA_MEASUREMENT_ID = 'G-YJ864EZPN0';
 /**
  * Web3Forms handles enquiry delivery, since a static site has no backend.
  *
- * The access key is public by design — Web3Forms expects it in client-side
+ * The access key is public by design - Web3Forms expects it in client-side
  * markup, and it only ever delivers to the address the key is registered to.
  * It cannot be used to read submissions or change the destination. Set
  * PUBLIC_WEB3FORMS_KEY to override it per environment.
@@ -41,7 +41,7 @@ const DEFAULT_WEB3FORMS_KEY = 'f6046b3c-7daa-4ca9-9206-9efbcf6290fd';
 /**
  * `||` rather than `??` on purpose. An unset GitHub Actions variable and a
  * blank line in .env both resolve to '' rather than undefined, and `??`
- * would happily pass that empty string through — producing a form that
+ * would happily pass that empty string through - producing a form that
  * renders fine but is rejected by Web3Forms on submit.
  */
 const envKey = import.meta.env.PUBLIC_WEB3FORMS_KEY?.trim();
@@ -94,7 +94,7 @@ export const FOOTER_NAV: { title: string; links: { label: string; href: string }
 
 /**
  * Headline metrics. These were rendering as "00+" on the previous site
- * because the odometer script never received values — set the real
+ * because the odometer script never received values - set the real
  * numbers here and they will render server-side.
  */
 export const STATS: { value: number; suffix: string; label: string }[] = [

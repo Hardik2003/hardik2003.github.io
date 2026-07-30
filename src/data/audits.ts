@@ -4,7 +4,7 @@
  * Sample figures below are the anonymised aggregates from real executive
  * reports. Account numbers, instance IDs, IP addresses, security group
  * names and IAM usernames from those reports are deliberately NOT
- * reproduced here — they identify a live customer environment.
+ * reproduced here - they identify a live customer environment.
  */
 
 export type Audit = {
@@ -29,7 +29,7 @@ export const AUDITS: Audit[] = [
     shortTitle: 'Security audit',
     icon: 'shield-search',
     summary:
-      'Over 2,300 automated checks across every region in your account, mapped to SOC 2, ISO 27001, GDPR, CIS and NIST — with a risk score, a prioritised fix list, and a 90-day roadmap.',
+      'Over 2,300 automated checks across every region in your account, mapped to SOC 2, ISO 27001, GDPR, CIS and NIST - with a risk score, a prioritised fix list, and a 90-day roadmap.',
     headline: { value: '2,304', label: 'Checks executed per account' },
     scope: [
       { value: '2,304', label: 'Automated checks' },
@@ -42,8 +42,8 @@ export const AUDITS: Audit[] = [
       'Quick wins your own team can complete in under 30 minutes',
       'Top findings written up with the business risk, not just the CVE',
       'Compliance mapping to SOC 2, ISO 27001, GDPR, CIS and NIST',
-      'A 90-day remediation roadmap split into week 1, weeks 2–4, month 2 and month 3',
-      'Success metrics — current state against a 90-day target for each KPI',
+      'A 90-day remediation roadmap split into week 1, weeks 2-4, month 2 and month 3',
+      'Success metrics - current state against a 90-day target for each KPI',
     ],
     sampleFindings: [
       {
@@ -52,7 +52,7 @@ export const AUDITS: Audit[] = [
       },
       {
         severity: 'Critical',
-        text: 'CloudTrail disabled across every region — meaning a breach would leave no forensic evidence at all.',
+        text: 'CloudTrail disabled across every region - meaning a breach would leave no forensic evidence at all.',
       },
       {
         severity: 'Critical',
@@ -77,7 +77,7 @@ export const AUDITS: Audit[] = [
     shortTitle: 'Cost audit',
     icon: 'gauge',
     summary:
-      'We find the spend that buys you nothing — idle gateways, ancient snapshots, addresses attached to no machine — and confirm each one against live usage rather than estimating.',
+      'We find the spend that buys you nothing - idle gateways, ancient snapshots, addresses attached to no machine - and confirm each one against live usage rather than estimating.',
     headline: { value: 'Week 1', label: 'Typical payback period' },
     scope: [
       { value: '157', label: 'Cost issues identified' },
@@ -86,12 +86,12 @@ export const AUDITS: Audit[] = [
       { value: 'Week 1', label: 'Typical payback period' },
     ],
     includes: [
-      'Confirmed monthly and annual waste — measured against live usage, not estimated',
+      'Confirmed monthly and annual waste - measured against live usage, not estimated',
       'Quick wins you can delete in week 1 with zero application disruption',
       'In-depth findings across compute, IAM, S3, networking and cost governance',
       'Issue distribution by category so you can see where waste concentrates',
       'A 90-day optimisation roadmap with the sequencing worked out',
-      'Success metrics — current state against a 90-day target for each KPI',
+      'Success metrics - current state against a 90-day target for each KPI',
     ],
     sampleFindings: [
       {
@@ -108,7 +108,7 @@ export const AUDITS: Audit[] = [
       },
       {
         severity: 'High',
-        text: 'Instances running consistently below 5% CPU — over-provisioned for the workload they actually carry.',
+        text: 'Instances running consistently below 5% CPU - over-provisioned for the workload they actually carry.',
       },
       {
         severity: 'Medium',
@@ -124,7 +124,7 @@ export const AUDIT_PRINCIPLES = [
   {
     icon: 'lock',
     title: 'Read-only, always',
-    body: 'Every finding is confirmed from read-only credentials. We never modify your environment during an assessment — not one setting.',
+    body: 'Every finding is confirmed from read-only credentials. We never modify your environment during an assessment - not one setting.',
   },
   {
     icon: 'target',
@@ -134,7 +134,7 @@ export const AUDIT_PRINCIPLES = [
   {
     icon: 'layers',
     title: 'Security and cost together',
-    body: 'The two overlap more than people expect. An idle NAT gateway is wasted spend and a network exposure — one fix, double the value.',
+    body: 'The two overlap more than people expect. An idle NAT gateway is wasted spend and a network exposure - one fix, double the value.',
   },
   {
     icon: 'users',

@@ -16,7 +16,7 @@ To use our services you must be at least 18 years of age, or have parental conse
 
 ## Intellectual property
 
-All content available on the ScionTech website — including text, graphics, logos, images, videos, and other materials — is the property of ScionTech or its licensors and is protected by copyright and intellectual property law. You may not use, copy, reproduce, distribute, or modify any part of the website's content without prior written permission.
+All content available on the ScionTech website - including text, graphics, logos, images, videos, and other materials - is the property of ScionTech or its licensors and is protected by copyright and intellectual property law. You may not use, copy, reproduce, distribute, or modify any part of the website's content without prior written permission.
 
 ## Engagements and payment
 
@@ -66,4 +66,4 @@ If you have questions about these terms and conditions, contact us at:
 **ScionTech**
 Email: [connect@sciontech.co](mailto:connect@sciontech.co)
 Phone: [+91-9825291410](tel:+919825291410)
-Address: Opp. Tagore Business Center, Tagore Road, Rajkot — 360002, Gujarat, India
+Address: Opp. Tagore Business Center, Tagore Road, Rajkot - 360002, Gujarat, India

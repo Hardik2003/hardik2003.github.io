@@ -43,7 +43,7 @@ const services = [
 ---
 
 <Base
-  title="Contact us — talk to a senior engineer"
+  title="Contact us - talk to a senior engineer"
   description="Get in touch with ScionTech for DevSecOps, cloud security and secure CI/CD engagements. Free 30-minute assessment with a senior engineer, no obligation."
   breadcrumbs={[{ name: 'Contact', href: '/contact' }]}
   schema={[schema]}
@@ -55,7 +55,7 @@ const services = [
         <h1 class="heading-1 mt-4 text-balance">Reach out to us</h1>
         <p class="lede mt-6 text-pretty">
           Tell us what you are building and where it hurts. We reply within one business day, and
-          the first conversation is a technical one — not a sales call.
+          the first conversation is a technical one - not a sales call.
         </p>
       </div>
     </div>
@@ -265,7 +265,7 @@ const services = [
               <h2 class="text-sm font-semibold text-ink-900">Visit us</h2>
               <address class="mt-1 text-sm not-italic leading-relaxed text-ink-500">
                 {address.street}<br />
-                {address.locality} — {address.postalCode}<br />
+                {address.locality} - {address.postalCode}<br />
                 {address.region}, {address.countryName}
               </address>
             </div>
@@ -311,7 +311,7 @@ const services = [
   const rules = {
     name(v) {
       if (!v) return 'Please enter your name.';
-      if (v.length < 2) return 'That looks too short — please enter your full name.';
+      if (v.length < 2) return 'That looks too short - please enter your full name.';
       if (v.length > 80) return 'Please keep this under 80 characters.';
       if (!HAS_LETTER.test(v)) return 'Please enter a name using letters.';
       if (LOOKS_LIKE_URL.test(v)) return 'Please enter a name, not a link.';
@@ -341,7 +341,7 @@ const services = [
     },
     message(v) {
       if (!v) return 'Please tell us a little about your project.';
-      if (v.length < 20) return `A bit more detail please — ${20 - v.length} more characters.`;
+      if (v.length < 20) return `A bit more detail please - ${20 - v.length} more characters.`;
       if (v.length > 2000) return 'Please keep this under 2000 characters.';
       if (!HAS_LETTER.test(v)) return 'Please describe your project in words.';
       return '';
@@ -380,7 +380,7 @@ const services = [
     const input = form.elements[name];
     if (!input) return;
 
-    // Only show an error once the visitor has finished with the field —
+    // Only show an error once the visitor has finished with the field -
     // flagging "invalid email" on the first keystroke is hostile.
     input.addEventListener('blur', () => {
       touched.add(name);
@@ -467,7 +467,7 @@ const services = [
     // "Reply" in the inbox go straight back to the enquirer.
     const service = data.get('service');
     const name = data.get('name');
-    data.set('subject', `${service || 'Enquiry'} — ${name || 'website enquiry'}`);
+    data.set('subject', `${service || 'Enquiry'} - ${name || 'website enquiry'}`);
     data.set('replyto', String(data.get('email') ?? ''));
 
     button.disabled = true;
@@ -488,7 +488,7 @@ const services = [
         touched.clear();
         fieldNames.forEach((n) => setError(n, ''));
         updateCount();
-        show('Thanks — your enquiry is with us. We will reply within one business day.', true);
+        show('Thanks - your enquiry is with us. We will reply within one business day.', true);
       } else {
         show(
           `${result.message || 'That did not send.'} Please email us directly at ${email}.`,

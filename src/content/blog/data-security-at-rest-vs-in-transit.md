@@ -123,6 +123,6 @@ While all organisations benefit from data encryption, certain industries face he
 
 ## Conclusion and next steps
 
-Data security is not optional — it is a business imperative. AWS's rich security ecosystem lets you safeguard data both at rest and in transit, achieve regulatory compliance, and build customer trust.
+Data security is not optional - it is a business imperative. AWS's rich security ecosystem lets you safeguard data both at rest and in transit, achieve regulatory compliance, and build customer trust.
 
 If your organisation needs expert guidance on crafting or auditing your AWS security posture, [get in touch](/contact) to learn how we can fortify your data defences.

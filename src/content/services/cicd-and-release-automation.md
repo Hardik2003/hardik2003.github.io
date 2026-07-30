@@ -1,7 +1,7 @@
 ---
 title: CI/CD and release automation
 shortTitle: CI/CD and release automation
-summary: Pipelines that turn a merged pull request into a safe production deployment in minutes — with the tests, gates and rollback path that make shipping often the low-risk option.
+summary: Pipelines that turn a merged pull request into a safe production deployment in minutes - with the tests, gates and rollback path that make shipping often the low-risk option.
 icon: git-branch
 image: ../../assets/services/devsecops-cicd.png
 order: 4
@@ -13,7 +13,7 @@ capabilities:
   - Canary, blue-green and progressive rollout
   - Automated rollback and release evidence
   - Quality and security gates built into the pipeline
-seoDescription: CI/CD pipeline engineering with GitHub Actions, GitLab CI and Jenkins — parallel testing, preview environments, progressive delivery and automated rollback.
+seoDescription: CI/CD pipeline engineering with GitHub Actions, GitLab CI and Jenkins - parallel testing, preview environments, progressive delivery and automated rollback.
 ---
 
 Teams that deploy rarely batch up risk. Twenty changes ship together, something breaks, and nobody knows which change caused it. So the next release gets delayed to add more testing, which makes it larger, which makes it riskier.
@@ -24,7 +24,7 @@ The way out is deploying smaller and more often, which requires a pipeline peopl
 
 A pipeline that takes forty minutes is a pipeline engineers learn to bypass. We parallelise test stages, cache aggressively, and cut the feedback loop on a pull request down to minutes.
 
-Ephemeral preview environments per pull request change how review works — reviewers click a link and use the change instead of reading a diff and imagining it. That catches a class of problem no test suite finds.
+Ephemeral preview environments per pull request change how review works - reviewers click a link and use the change instead of reading a diff and imagining it. That catches a class of problem no test suite finds.
 
 ## Safe enough that deploying is boring
 
