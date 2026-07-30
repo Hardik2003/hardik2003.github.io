@@ -33,8 +33,10 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # Set this in Settings → Secrets and variables → Actions → Variables
-          PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT }}
+          # Optional. The form works without this — a default Web3Forms key is
+          # committed in src/consts.ts. Set this repo variable only to point at
+          # a different Web3Forms inbox.
+          PUBLIC_WEB3FORMS_KEY: ${{ vars.PUBLIC_WEB3FORMS_KEY }}
 
       - uses: actions/configure-pages@v5
 

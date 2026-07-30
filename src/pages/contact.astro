@@ -1,14 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import { SITE, CONTACT } from '../consts';
+import { SITE, CONTACT, WEB3FORMS } from '../consts';
 
 /**
- * Static hosting has no backend, so the enquiry form posts to a third-party
- * form service. Set PUBLIC_FORM_ENDPOINT in .env (see .env.example).
- * Until it is set, the form falls back to a prefilled mailto link.
+ * Static hosting has no backend, so enquiries go through Web3Forms, which
+ * delivers them to CONTACT.email. The plain `action` attribute means the
+ * form still works with JavaScript disabled; the script below intercepts
+ * it to keep the visitor on the page and show inline status instead.
  */
-const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
 
 const { address } = CONTACT;
 
@@ -63,9 +63,12 @@ const services = [
           <form
             id="enquiry-form"
             method="POST"
-            action={formEndpoint || undefined}
+            action={WEB3FORMS.endpoint}
             class="space-y-6"
           >
+            <input type="hidden" name="access_key" value={WEB3FORMS.accessKey} />
+            <input type="hidden" name="from_name" value={`${SITE.name} website`} />
+            <input type="hidden" name="subject" value="New enquiry from sciontech.co" />
             <div class="grid gap-6 sm:grid-cols-2">
               <div>
                 <label for="name" class="block text-sm font-medium text-ink-900">
@@ -148,10 +151,10 @@ const services = [
                 placeholder="What are you running today, what is going wrong, and what would a good outcome look like?"></textarea>
             </div>
 
-            <!-- Honeypot: bots fill this, humans never see it -->
+            <!-- Web3Forms honeypot: bots fill this, humans never see it -->
             <div class="absolute -left-[9999px]" aria-hidden="true">
-              <label for="website">Do not fill this in</label>
-              <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off" />
+              <label for="botcheck">Do not fill this in</label>
+              <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" />
             </div>
 
             <div class="flex flex-wrap items-center gap-4">
@@ -249,9 +252,11 @@ const services = [
   </section>
 </Base>
 
-<script is:inline define:vars={{ formEndpoint, email: CONTACT.email }}>
+<script is:inline define:vars={{ endpoint: WEB3FORMS.endpoint, email: CONTACT.email }}>
   const form = document.getElementById('enquiry-form');
   const status = document.getElementById('form-status');
+  const button = form.querySelector('button[type="submit"]');
+  const originalButton = button.innerHTML;
 
   const show = (message, ok) => {
     status.textContent = message;
@@ -262,47 +267,43 @@ const services = [
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+
     const data = new FormData(form);
 
-    // No form service configured yet — hand off to the user's mail client.
-    if (!formEndpoint) {
-      const body = [
-        `Name: ${data.get('name') ?? ''}`,
-        `Email: ${data.get('email') ?? ''}`,
-        `Company: ${data.get('company') ?? ''}`,
-        `Phone: ${data.get('phone') ?? ''}`,
-        `Service: ${data.get('service') ?? ''}`,
-        '',
-        String(data.get('message') ?? ''),
-      ].join('\n');
+    // Make the notification email useful at a glance, and let a plain
+    // "Reply" in the inbox go straight back to the enquirer.
+    const service = data.get('service');
+    const name = data.get('name');
+    data.set('subject', `${service || 'Enquiry'} — ${name || 'website enquiry'}`);
+    data.set('replyto', String(data.get('email') ?? ''));
 
-      window.location.href =
-        `mailto:${email}?subject=${encodeURIComponent('Website enquiry')}` +
-        `&body=${encodeURIComponent(body)}`;
-      return;
-    }
-
-    const button = form.querySelector('button[type="submit"]');
     button.disabled = true;
-    const original = button.innerHTML;
     button.textContent = 'Sending…';
+    status.className = 'hidden';
 
     try {
-      const response = await fetch(formEndpoint, {
+      const response = await fetch(endpoint, {
         method: 'POST',
         body: data,
         headers: { Accept: 'application/json' },
       });
 
-      if (!response.ok) throw new Error(String(response.status));
+      const result = await response.json().catch(() => ({}));
 
-      form.reset();
-      show('Thanks — your enquiry is with us. We will reply within one business day.', true);
+      if (response.ok && result.success) {
+        form.reset();
+        show('Thanks — your enquiry is with us. We will reply within one business day.', true);
+      } else {
+        show(
+          `${result.message || 'That did not send.'} Please email us directly at ${email}.`,
+          false
+        );
+      }
     } catch {
       show(`Something went wrong sending that. Please email us directly at ${email}.`, false);
     } finally {
       button.disabled = false;
-      button.innerHTML = original;
+      button.innerHTML = originalButton;
     }
   });
 </script>

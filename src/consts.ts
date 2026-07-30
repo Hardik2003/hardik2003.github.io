@@ -28,6 +28,20 @@ export const CONTACT = {
 /** Google Analytics measurement ID carried over from the previous site. */
 export const GA_MEASUREMENT_ID = 'G-YJ864EZPN0';
 
+/**
+ * Web3Forms handles enquiry delivery, since a static site has no backend.
+ *
+ * The access key is public by design — Web3Forms expects it in client-side
+ * markup, and it only ever delivers to the address the key is registered to.
+ * It cannot be used to read submissions or change the destination. Set
+ * PUBLIC_WEB3FORMS_KEY to override it per environment.
+ */
+export const WEB3FORMS = {
+  endpoint: 'https://api.web3forms.com/submit',
+  accessKey:
+    import.meta.env.PUBLIC_WEB3FORMS_KEY ?? 'f6046b3c-7daa-4ca9-9206-9efbcf6290fd',
+} as const;
+
 export const NAV: { label: string; href: string }[] = [
   { label: 'Services', href: '/services' },
   { label: 'Work', href: '/work' },

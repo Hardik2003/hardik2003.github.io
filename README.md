@@ -55,16 +55,15 @@ Site-wide values — phone number, address, navigation, headline stats — live 
 
 ## The contact form
 
-Static hosting has no backend, so the form posts to a third-party service. Pick one, then set the endpoint:
+Static hosting has no backend, so enquiries are delivered by [Web3Forms](https://web3forms.com). This is already configured and working — no setup needed.
 
-```bash
-cp .env.example .env
-# edit .env and set PUBLIC_FORM_ENDPOINT
-```
+Submissions arrive at the address the access key is registered to. The email subject is built from the selected service and the enquirer's name, and `replyto` is set to their address so hitting Reply in your inbox goes straight back to them.
 
-[Formspree](https://formspree.io), [Web3Forms](https://web3forms.com) and [Formspark](https://formspark.io) all have free tiers and work without code changes.
+The access key lives in `src/consts.ts`. **It is public by design** — Web3Forms expects it in page HTML, and it can only deliver to its registered address. It cannot be used to read past submissions or redirect them elsewhere. To point an environment at a different inbox, set `PUBLIC_WEB3FORMS_KEY`.
 
-If you leave it unset, the form falls back to opening the visitor's email client with the enquiry prefilled. That works, but it converts noticeably worse — set the endpoint before launch.
+The form also works with JavaScript disabled: the `<form action>` posts directly to Web3Forms. With JS on, the submission is intercepted so the visitor stays on the page and sees inline success or error text.
+
+Spam is filtered by a hidden `botcheck` honeypot. If you start getting spam anyway, enable hCaptcha in the Web3Forms dashboard and add their captcha field to the form.
 
 ## Deploying
 
