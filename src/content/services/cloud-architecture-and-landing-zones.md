@@ -13,7 +13,7 @@ capabilities:
   - Guardrails and policy-as-code
   - Tagging strategy and per-team cost attribution
   - High availability and disaster recovery design
-seoDescription: AWS and Azure landing zone and cloud architecture services - multi-account design, network segmentation, identity and access, guardrails, and disaster recovery.
+seoDescription: AWS, Azure and GCP landing zone and cloud architecture services - multi-account design, network segmentation, identity and access, guardrails, and disaster recovery.
 ---
 
 Most cloud estates are not designed. They accumulate. One account becomes five, someone adds a VPC by hand, permissions get widened to unblock a release, and two years later nobody can answer which team owns what or why the bill went up.

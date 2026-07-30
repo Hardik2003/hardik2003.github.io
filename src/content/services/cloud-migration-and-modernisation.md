@@ -1,7 +1,7 @@
 ---
 title: Cloud migration and modernisation
 shortTitle: Cloud migration and modernisation
-summary: Move workloads from on-premise or another provider to AWS or Azure - rehosting what should stay as-is, refactoring what shouldn't, and cutting over without a weekend of downtime.
+summary: Move workloads from on-premise or another provider to AWS, Azure or GCP - rehosting what should stay as-is, refactoring what shouldn't, and cutting over without a weekend of downtime.
 icon: transfer
 image: ../../assets/services/cloud-security.png
 order: 1
@@ -12,7 +12,7 @@ capabilities:
   - Database migration with minimal cutover downtime
   - Hybrid and multi-cloud connectivity
   - Post-migration rightsizing and cost baselining
-seoDescription: AWS and Azure cloud migration services - discovery and wave planning, rehost and refactor, database migration with minimal downtime, and hybrid connectivity.
+seoDescription: AWS, Azure and GCP cloud migration services - discovery and wave planning, rehost and refactor, database migration with minimal downtime, and hybrid connectivity.
 ---
 
 Moving to the cloud is the easy part. Landing somewhere better than where you started is the work.
@@ -36,3 +36,9 @@ We reserve refactoring for workloads where the cloud genuinely unlocks value - a
 Database migration is where most timelines slip. We use replication-based approaches that keep source and target in sync so the actual switch is minutes rather than hours, with a tested rollback at every step.
 
 Where a hybrid state has to persist - because a licence, a regulator or a mainframe says so - we design that connectivity properly rather than treating it as a temporary hack that lives for three years.
+
+## Not every workload needs a hyperscaler
+
+AWS, Azure and GCP are the default for good reasons, but they are not the only option. A predictable workload with modest scale requirements is often better served by DigitalOcean or Linode, where the bill is simpler and there is far less platform to operate.
+
+We size the target to the workload rather than defaulting to the biggest name. If a hyperscaler's breadth genuinely earns its cost and complexity for you, we say so. If it doesn't, we say that too.

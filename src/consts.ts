@@ -2,9 +2,9 @@ export const SITE = {
   name: 'ScionTech',
   legalName: 'ScionTech',
   url: 'https://sciontech.co',
-  title: 'ScionTech - Cloud and DevOps services on AWS and Azure',
+  title: 'ScionTech - Cloud and DevOps services on AWS, Azure and GCP',
   description:
-    'ScionTech is a cloud and DevOps engineering partner. Migration and architecture, cost optimisation, CI/CD, Kubernetes, serverless, observability and cloud security - delivered by senior engineers on AWS and Azure.',
+    'ScionTech is a cloud and DevOps engineering partner. Migration and architecture, cost optimisation, CI/CD, Kubernetes, serverless, observability and cloud security - delivered by senior engineers on AWS, Azure and GCP, with support for DigitalOcean and Linode.',
   locale: 'en',
   ogImage: '/og-default.png',
   foundingYear: 2019,

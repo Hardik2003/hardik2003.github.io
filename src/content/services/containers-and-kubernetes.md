@@ -1,19 +1,19 @@
 ---
 title: Containers and Kubernetes
 shortTitle: Containers and Kubernetes
-summary: Container platforms on EKS, AKS, ECS or Fargate that your team can actually operate - sensibly sized, GitOps-delivered, and without the complexity nobody asked for.
+summary: Container platforms on EKS, AKS, GKE, ECS or Fargate that your team can actually operate - sensibly sized, GitOps-delivered, and without the complexity nobody asked for.
 icon: box
 image: ../../assets/services/runtime-protection.png
 order: 5
 featured: true
 capabilities:
-  - Platform design on EKS, AKS, ECS and Fargate
+  - Platform design on EKS, AKS, GKE, ECS and Fargate
   - Right-sized cluster architecture and autoscaling
   - GitOps delivery with Helm and Argo CD
   - Image build pipelines and registry policy
   - Cluster hardening, RBAC and network policy
   - Cost-aware node strategy including Spot and Graviton
-seoDescription: Kubernetes and container platform engineering on EKS, AKS, ECS and Fargate - GitOps delivery, autoscaling, cluster hardening and cost-aware node strategy.
+seoDescription: Kubernetes and container platform engineering on EKS, AKS, GKE, ECS and Fargate - GitOps delivery, autoscaling, cluster hardening and cost-aware node strategy.
 ---
 
 Kubernetes solves real problems, and it introduces its own. Plenty of teams adopt it and end up with a platform that needs a dedicated engineer to keep running - for a workload that would have been happier on ECS or Fargate.
