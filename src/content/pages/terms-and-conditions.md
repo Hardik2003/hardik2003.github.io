@@ -53,7 +53,7 @@ You agree to indemnify and hold harmless ScionTech, its officers, employees, age
 
 ## Governing law
 
-These terms are governed by and construed in accordance with the laws of India. Any legal action or proceeding related to these terms shall be subject to the exclusive jurisdiction of the courts at Rajkot, Gujarat.
+These terms are governed by and construed in accordance with the laws of India. Any legal action or proceeding related to these terms shall be subject to the exclusive jurisdiction of the courts at Ahmedabad, Gujarat.
 
 ## Changes to these terms
 
@@ -66,4 +66,4 @@ If you have questions about these terms and conditions, contact us at:
 **ScionTech**
 Email: [connect@sciontech.co](mailto:connect@sciontech.co)
 Phone: [+91-9825291410](tel:+919825291410)
-Address: Opp. Tagore Business Center, Tagore Road, Rajkot - 360002, Gujarat, India
+Offices: Bengaluru, Karnataka and Ahmedabad, Gujarat, India

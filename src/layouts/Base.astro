@@ -33,14 +33,28 @@ const organization = {
   email: CONTACT.email,
   telephone: CONTACT.phone,
   sameAs: [CONTACT.linkedin],
+  // Primary office as `address`, every office as `location`, so search
+  // engines can associate the organisation with both cities.
   address: {
     '@type': 'PostalAddress',
-    streetAddress: CONTACT.address.street,
-    addressLocality: CONTACT.address.locality,
-    addressRegion: CONTACT.address.region,
-    postalCode: CONTACT.address.postalCode,
-    addressCountry: CONTACT.address.country,
+    ...(CONTACT.offices[0].street ? { streetAddress: CONTACT.offices[0].street } : {}),
+    addressLocality: CONTACT.offices[0].city,
+    addressRegion: CONTACT.offices[0].region,
+    ...(CONTACT.offices[0].postalCode ? { postalCode: CONTACT.offices[0].postalCode } : {}),
+    addressCountry: CONTACT.offices[0].country,
   },
+  location: CONTACT.offices.map((office) => ({
+    '@type': 'Place',
+    name: `${SITE.name} ${office.city}`,
+    address: {
+      '@type': 'PostalAddress',
+      ...(office.street ? { streetAddress: office.street } : {}),
+      addressLocality: office.city,
+      addressRegion: office.region,
+      ...(office.postalCode ? { postalCode: office.postalCode } : {}),
+      addressCountry: office.country,
+    },
+  })),
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: CONTACT.phone,

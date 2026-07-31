@@ -40,12 +40,28 @@ const initials = (name: string) =>
           >
             {initials(t.name)}
           </span>
-          <div class="min-w-0">
+          <div class="min-w-0 flex-1">
             <p class="truncate text-sm font-semibold text-ink-900">{t.name}</p>
             <p class="truncate text-sm text-ink-500">
               {t.role}, {t.company}
             </p>
           </div>
+
+          {
+            t.result && (
+              <a
+                href={t.result.href}
+                class="group ml-auto hidden shrink-0 rounded-lg border border-ink-100 px-3 py-2 text-right transition-colors hover:border-accent-600 sm:block"
+              >
+                <span class="block text-sm font-semibold text-ink-900 transition-colors group-hover:text-accent-600">
+                  {t.result.value}
+                </span>
+                <span class="block text-[0.6875rem] leading-tight text-ink-400">
+                  {t.result.label}
+                </span>
+              </a>
+            )
+          }
         </figcaption>
       </figure>
     ))

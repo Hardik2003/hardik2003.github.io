@@ -10,18 +10,34 @@ export const SITE = {
   foundingYear: 2019,
 } as const;
 
+export type Office = {
+  city: string;
+  region: string;
+  /** Street line. Empty until the real one is supplied. */
+  street?: string;
+  postalCode?: string;
+  country: string;
+  countryName: string;
+};
+
+/**
+ * Offices, primary first. The primary one is what goes into the
+ * Organization schema as `address`; both are emitted as `location`.
+ *
+ * Street lines and postcodes are still missing. Local search results and
+ * a Google Business Profile both need a full street address, so these
+ * should be filled in before launch.
+ */
+export const OFFICES: Office[] = [
+  { city: 'Bengaluru', region: 'Karnataka', country: 'IN', countryName: 'India' },
+  { city: 'Ahmedabad', region: 'Gujarat', country: 'IN', countryName: 'India' },
+];
+
 export const CONTACT = {
   email: 'connect@sciontech.co',
   phone: '+91-9825291410',
   phoneHref: '+919825291410',
-  address: {
-    street: 'Opp. Tagore Business Center, Tagore Road',
-    locality: 'Rajkot',
-    region: 'Gujarat',
-    postalCode: '360002',
-    country: 'IN',
-    countryName: 'India',
-  },
+  offices: OFFICES,
   linkedin: 'https://www.linkedin.com/company/scion-tech/',
 } as const;
 

@@ -66,4 +66,4 @@ If you have questions about this privacy policy, or wish to exercise your rights
 **ScionTech**
 Email: [connect@sciontech.co](mailto:connect@sciontech.co)
 Phone: [+91-9825291410](tel:+919825291410)
-Address: Opp. Tagore Business Center, Tagore Road, Rajkot - 360002, Gujarat, India
+Offices: Bengaluru, Karnataka and Ahmedabad, Gujarat, India

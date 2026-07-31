@@ -11,6 +11,12 @@ export type Testimonial = {
   role: string;
   company: string;
   avatar: ImageMetadata;
+  /**
+   * Where the same client has a published case study, the headline result
+   * and its slug. Turns a subjective quote into something a prospect can
+   * click through and verify.
+   */
+  result?: { value: string; label: string; href: string };
 };
 
 export const TESTIMONIALS: Testimonial[] = [
@@ -29,6 +35,11 @@ export const TESTIMONIALS: Testimonial[] = [
     role: 'CEO',
     company: 'Simplermedia Group',
     avatar: briceDunwoodie,
+    result: {
+      value: '20%',
+      label: 'lower operational cost',
+      href: '/work/simplermedia-container-migration',
+    },
   },
   {
     quote: 'A genuine game changer',
@@ -45,5 +56,10 @@ export const TESTIMONIALS: Testimonial[] = [
     role: 'CEO',
     company: 'Eazybot',
     avatar: mohammedAli,
+    result: {
+      value: '99.95%',
+      label: 'platform availability',
+      href: '/work/eazybot-trading-platform-hardening',
+    },
   },
 ];
