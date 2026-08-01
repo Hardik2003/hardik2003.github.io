@@ -129,8 +129,41 @@
   animation: marquee 42s linear infinite;
 }
 
+/*
+ * Testimonials scroll far slower than the client strip, because a visitor
+ * has to read a paragraph rather than recognise a name. Hovering or
+ * tabbing into the track stops it, otherwise a quote can slide away
+ * mid-sentence.
+ */
+.animate-marquee-slow {
+  animation: marquee 110s linear infinite;
+}
+
+.marquee-track:hover .animate-marquee-slow,
+.marquee-track:focus-within .animate-marquee-slow {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee {
+  .animate-marquee,
+  .animate-marquee-slow {
     animation: none;
+  }
+
+  /* With the animation off the row still has to be reachable. */
+  .marquee-track {
+    overflow-x: auto;
+  }
+}
+
+/* Touch users can swipe the row at any time. */
+@media (hover: none) {
+  .marquee-track {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .marquee-track::-webkit-scrollbar {
+    display: none;
   }
 }

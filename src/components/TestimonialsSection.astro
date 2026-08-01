@@ -1,7 +1,5 @@
 ---
 import Testimonials from './Testimonials.astro';
-import { TESTIMONIALS } from '../data/testimonials';
-import { CLIENTS } from '../data/clients';
 
 /**
  * Social proof gets the one saturated band on the site.
@@ -23,25 +21,17 @@ interface Props {
   class?: string;
 }
 
-/**
- * Framing the count turns a short list into a deliberate selection rather
- * than something that looks unfinished. Both numbers are read from the
- * data, so they stay right as quotes are added.
- */
-const shown = Astro.props.limit ?? TESTIMONIALS.length;
-const defaultLede = `${shown} of the ${CLIENTS.length} teams we work with, in their own words.`;
-
 const {
   eyebrow = 'Client journeys',
   title = 'What our clients say',
-  lede = defaultLede,
+  lede,
   limit,
   class: className = '',
 } = Astro.props;
 ---
 
 <section class:list={['bg-accent-600', className]}>
-  <div class="container-page py-20 lg:py-28">
+  <div class="container-page pb-14 pt-20 lg:pb-16 lg:pt-28">
     <div data-reveal class="mx-auto max-w-2xl text-center">
       <p class="text-xs font-medium uppercase tracking-[0.14em] text-accent-100">
         {eyebrow}
@@ -50,8 +40,9 @@ const {
       {lede && <p class="mt-5 text-lg leading-relaxed text-accent-100">{lede}</p>}
     </div>
 
-    <div class="mt-14">
-      <Testimonials limit={limit} />
-    </div>
+  </div>
+
+  <div class="pb-20 lg:pb-28">
+    <Testimonials limit={limit} />
   </div>
 </section>
