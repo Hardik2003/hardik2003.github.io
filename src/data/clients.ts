@@ -12,6 +12,11 @@ export type Client = { name: string };
  * If clients supply proper SVG marks later, add a `logo` field back and
  * render <Image> in LogoMarquee when it is present.
  */
+/**
+ * Legal suffixes (Inc., LLC) are dropped for display. A client strip reads
+ * as brand marks, and suffixes make the row look like a registry listing.
+ * They still belong anywhere you name the legal entity, such as contracts.
+ */
 export const CLIENTS: Client[] = [
   { name: 'Cylogy' },
   { name: 'EazyBot' },
@@ -19,4 +24,10 @@ export const CLIENTS: Client[] = [
   { name: 'EnigmaPlus' },
   { name: 'Simpler Media Group' },
   { name: 'Astrolabe Analytics' },
+  { name: 'PADI Systems' },
+  { name: 'Tipedia' },
+  { name: 'Simply Analytics' },
+  { name: 'Tatango' },
+  { name: 'AnswerDash' },
+  { name: 'Ravenna Solutions' },
 ];

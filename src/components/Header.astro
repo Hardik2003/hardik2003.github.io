@@ -46,9 +46,14 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
       <div class="hidden items-center gap-3 lg:flex">
         <a
           href="/free-audit"
-          class="rounded-lg px-3.5 py-2 text-sm font-medium text-ink-600 transition-colors hover:text-ink-900"
+          class="inline-flex items-center gap-2 rounded-lg border border-accent-200 bg-accent-50 px-3.5 py-2 text-sm font-medium text-accent-700 transition-colors hover:border-accent-600 hover:bg-accent-100"
         >
-          Free audit
+          <span
+            class="rounded bg-accent-600 px-1.5 py-0.5 text-[0.625rem] font-semibold uppercase tracking-[0.06em] text-white"
+          >
+            Free
+          </span>
+          AWS audit
         </a>
         <a
           href="/contact"
@@ -99,9 +104,14 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
       </ul>
       <a
         href="/free-audit"
-        class="mt-4 flex items-center justify-center gap-2 rounded-lg border border-ink-200 px-4 py-3 text-sm font-medium text-ink-900"
+        class="mt-4 flex items-center justify-center gap-2 rounded-lg border border-accent-200 bg-accent-50 px-4 py-3 text-sm font-medium text-accent-700"
       >
-        Free AWS audit
+        <span
+          class="rounded bg-accent-600 px-1.5 py-0.5 text-[0.625rem] font-semibold uppercase tracking-[0.06em] text-white"
+        >
+          Free
+        </span>
+        AWS audit
       </a>
       <a
         href="/contact"
