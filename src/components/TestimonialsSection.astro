@@ -1,5 +1,7 @@
 ---
 import Testimonials from './Testimonials.astro';
+import { TESTIMONIALS } from '../data/testimonials';
+import { CLIENTS } from '../data/clients';
 
 /**
  * Social proof gets the one saturated band on the site.
@@ -16,12 +18,21 @@ import Testimonials from './Testimonials.astro';
 interface Props {
   eyebrow?: string;
   title?: string;
+  lede?: string;
   class?: string;
 }
+
+/**
+ * Framing the count turns a short list into a deliberate selection rather
+ * than something that looks unfinished. Both numbers are read from the
+ * data, so they stay right as quotes are added.
+ */
+const defaultLede = `${TESTIMONIALS.length} of the ${CLIENTS.length} teams we work with, in their own words.`;
 
 const {
   eyebrow = 'Client journeys',
   title = 'What our clients say',
+  lede = defaultLede,
   class: className = '',
 } = Astro.props;
 ---
@@ -33,6 +44,7 @@ const {
         {eyebrow}
       </p>
       <h2 class="heading-2 mt-3 !text-white">{title}</h2>
+      {lede && <p class="mt-5 text-lg leading-relaxed text-accent-100">{lede}</p>}
     </div>
 
     <div class="mt-14">
