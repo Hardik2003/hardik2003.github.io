@@ -19,6 +19,7 @@ interface Props {
   eyebrow?: string;
   title?: string;
   lede?: string;
+  limit?: number;
   class?: string;
 }
 
@@ -27,12 +28,14 @@ interface Props {
  * than something that looks unfinished. Both numbers are read from the
  * data, so they stay right as quotes are added.
  */
-const defaultLede = `${TESTIMONIALS.length} of the ${CLIENTS.length} teams we work with, in their own words.`;
+const shown = Astro.props.limit ?? TESTIMONIALS.length;
+const defaultLede = `${shown} of the ${CLIENTS.length} teams we work with, in their own words.`;
 
 const {
   eyebrow = 'Client journeys',
   title = 'What our clients say',
   lede = defaultLede,
+  limit,
   class: className = '',
 } = Astro.props;
 ---
@@ -48,7 +51,7 @@ const {
     </div>
 
     <div class="mt-14">
-      <Testimonials />
+      <Testimonials limit={limit} />
     </div>
   </div>
 </section>
