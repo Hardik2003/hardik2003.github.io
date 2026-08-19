@@ -73,7 +73,7 @@ export const AUDITS: Audit[] = [
         text: 'CloudTrail disabled across every region - meaning a breach would leave no forensic evidence at all.',
       },
       {
-        severity: 'Critical',
+        severity: 'High',
         text: 'A dormant administrator account holding an access key unrotated for 819 days.',
       },
       {
@@ -145,7 +145,7 @@ export const AUDIT_PRINCIPLES = [
   {
     icon: 'lock',
     title: 'Read-only, always',
-    body: 'Every finding is confirmed from read-only credentials. We never modify your environment during an assessment - not one setting.',
+    body: 'Two AWS-managed policies and zero write permissions. The role cannot create, modify or delete a single resource in your account - AWS enforces that, not our promise. Revoke it by deleting the stack.',
   },
   {
     icon: 'target',
