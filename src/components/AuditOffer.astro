@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import Button from './Button.astro';
-import { AUDITS } from '../data/audits';
+import { AUDIT } from '../data/audits';
 import { AUDIT_APP_URL } from '../consts';
 ---
 
@@ -24,80 +24,87 @@ import { AUDIT_APP_URL } from '../consts';
         Start with a <span class="text-accent-600">free</span> AWS audit
       </h2>
       <p class="lede mt-5 text-pretty">
-        Give us read-only access and we will tell you what your AWS account is costing you and
-        where it is exposed. Your score and your three highest-impact fixes come back in about
-        ten minutes, yours to action - there is no obligation to work with us.
+        Give us read-only access and one scan tells you both what your AWS account is wasting and
+        where it is exposed. Your score and your three highest-impact fixes come back in about ten
+        minutes, yours to action - there is no obligation to work with us.
       </p>
     </div>
 
-    <div class="mt-14 grid gap-5 lg:grid-cols-2">
-      {
-        AUDITS.map((audit, i) => (
-          <div
-            data-reveal
-            data-reveal-delay={i * 90}
-            class="flex flex-col rounded-2xl border-2 border-accent-200 bg-white p-7 transition duration-300 ease-[var(--ease-out-soft)] hover:border-accent-600 hover:shadow-[0_18px_40px_-24px_rgba(29,78,216,0.35)] lg:p-8"
-          >
-            <div class="flex items-start justify-between gap-4">
-              <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent-50 text-accent-600">
-                <Icon name={audit.icon} size={21} />
-              </span>
-              <span
-                class="rounded-md bg-accent-600 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.06em] text-white"
-              >
-                Free
-              </span>
+    <!--
+      One panel, because there is one scan. The two lenses sit inside it as
+      halves of a single report rather than as competing products - which is
+      also what stops the page promising three fixes twice over.
+    -->
+    <div
+      data-reveal
+      class="mt-14 rounded-2xl border-2 border-accent-200 bg-white p-7 transition duration-300 ease-[var(--ease-out-soft)] hover:border-accent-600 hover:shadow-[0_18px_40px_-24px_rgba(29,78,216,0.35)] lg:p-9"
+    >
+      <dl class="grid grid-cols-2 gap-x-5 gap-y-4 border-b border-ink-100 pb-6 sm:grid-cols-4">
+        {
+          AUDIT.scope.map((s) => (
+            <div class="min-w-0">
+              <dt class="sr-only">{s.label}</dt>
+              <dd>
+                <span class="block text-2xl font-semibold tracking-[-0.025em] text-ink-900">
+                  {s.value}
+                </span>
+                <span class="mt-1 block text-xs leading-snug text-ink-400">{s.label}</span>
+              </dd>
             </div>
+          ))
+        }
+      </dl>
 
-            <h3 class="mt-6 text-xl font-semibold tracking-[-0.015em] text-ink-900">
-              {audit.title}
-            </h3>
-            <p class="mt-3 text-sm leading-relaxed text-ink-500">{audit.summary}</p>
-
-            <dl class="mt-7 grid grid-cols-2 gap-x-5 gap-y-4 border-y border-ink-100 py-6">
-              {audit.scope.map((s) => (
-                <div class="min-w-0">
-                  <dt class="sr-only">{s.label}</dt>
-                  <dd>
-                    <span class="block text-2xl font-semibold tracking-[-0.025em] text-ink-900">
-                      {s.value}
-                    </span>
-                    <span class="mt-1 block text-xs leading-snug text-ink-400">{s.label}</span>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-
-            <p class="mt-6 text-xs font-medium uppercase tracking-[0.14em] text-accent-600">
-              Free, the moment the scan finishes
-            </p>
-            <ul class="mt-4 flex-1 space-y-3">
-              {audit.free.map((item) => (
+      <div class="grid gap-8 pt-7 lg:grid-cols-2 lg:gap-12">
+        <div>
+          <p class="text-xs font-medium uppercase tracking-[0.14em] text-accent-600">
+            Free, the moment the scan finishes
+          </p>
+          <ul class="mt-4 space-y-3">
+            {
+              AUDIT.free.map((item) => (
                 <li class="flex items-start gap-2.5 text-sm leading-relaxed text-ink-600">
                   <Icon name="check" size={17} class="mt-0.5 shrink-0 text-accent-600" />
                   {item}
                 </li>
-              ))}
-            </ul>
-            <p class="mt-5 border-t border-ink-100 pt-5 text-sm leading-relaxed text-ink-500">
-              The full findings register, compliance mapping and 90-day roadmap come in a
-              30-minute walkthrough with the engineer who ran the scan.
-            </p>
+              ))
+            }
+          </ul>
+          <p class="mt-5 border-t border-ink-100 pt-5 text-sm leading-relaxed text-ink-500">
+            The full findings register, compliance mapping and 90-day roadmap come in a 30-minute
+            walkthrough with the engineer who ran the scan.
+          </p>
+        </div>
 
-            <a
-              href={`/free-audit#${audit.slug}`}
-              class="group mt-7 inline-flex items-center gap-1.5 py-1 text-sm font-medium text-accent-600"
-            >
-              What the {audit.shortTitle.toLowerCase()} covers
-              <Icon
-                name="arrow-right"
-                size={15}
-                class="transition-transform duration-200 group-hover:translate-x-0.5"
-              />
-            </a>
-          </div>
-        ))
-      }
+        <div class="space-y-4">
+          {
+            AUDIT.lenses.map((lens) => (
+              <a
+                href={`/free-audit#${lens.slug}`}
+                class="group block rounded-xl border border-ink-100 p-5 transition-colors hover:border-accent-600"
+              >
+                <div class="flex items-center gap-3">
+                  <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-50 text-accent-600">
+                    <Icon name={lens.icon} size={19} />
+                  </span>
+                  <h3 class="font-semibold tracking-[-0.01em] text-ink-900 transition-colors group-hover:text-accent-600">
+                    {lens.title}
+                  </h3>
+                </div>
+                <p class="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-500">{lens.summary}</p>
+                <span class="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-accent-600">
+                  What it covers
+                  <Icon
+                    name="arrow-right"
+                    size={15}
+                    class="transition-transform duration-200 group-hover:translate-x-0.5"
+                  />
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
     </div>
 
     <div data-reveal class="mt-12 flex flex-wrap justify-center gap-3">

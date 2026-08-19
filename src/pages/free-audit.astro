@@ -4,7 +4,7 @@ import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import LogoMarquee from '../components/LogoMarquee.astro';
-import { AUDITS, AUDIT_PRINCIPLES } from '../data/audits';
+import { AUDIT, AUDIT_PRINCIPLES } from '../data/audits';
 import { SITE, AUDIT_APP_URL } from '../consts';
 
 /**
@@ -75,8 +75,8 @@ const schema = {
           Find out what your AWS account is really costing you
         </h1>
         <p class="lede mt-6 text-pretty">
-          Two audits, both free. One tells you where your money is going to waste. The other tells
-          you where you are exposed. Your score and your three highest-impact fixes land in about
+          One read-only scan tells you both where you are exposed and what the account is wasting -
+          usually the same resources. Your score and your three highest-impact fixes land in about
           ten minutes, yours to action whether or not you go on to work with us.
         </p>
         <div class="mt-9 flex flex-wrap gap-3">
@@ -86,113 +86,150 @@ const schema = {
     </div>
   </section>
 
-  <!-- The two audits -->
+  <!-- One scan: scope, and the free / walkthrough split -->
+  <section class="bg-white py-20 lg:py-28">
+    <div class="container-page">
+      <div class="grid gap-14 lg:grid-cols-[1fr_22rem] lg:gap-20">
+        <div>
+          <p data-reveal class="eyebrow">The scan</p>
+          <h2 data-reveal class="heading-2 mt-5">{AUDIT.title}</h2>
+          <p data-reveal class="lede mt-5 max-w-2xl">{AUDIT.summary}</p>
+
+          <dl
+            data-reveal
+            class="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 border-y border-ink-100 py-8 sm:grid-cols-4"
+          >
+            {
+              AUDIT.scope.map((s) => (
+                <div class="min-w-0">
+                  <dt class="sr-only">{s.label}</dt>
+                  <dd>
+                    <span class="block text-3xl font-semibold tracking-[-0.03em] text-ink-900">
+                      {s.value}
+                    </span>
+                    <span class="mt-1.5 block text-xs leading-snug text-ink-400">{s.label}</span>
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+
+          <!-- Jump links keep both halves reachable from the top of the page -->
+          <ul data-reveal class="mt-10 flex flex-wrap gap-3">
+            {
+              AUDIT.lenses.map((lens) => (
+                <li>
+                  <a
+                    href={`#${lens.slug}`}
+                    class="group inline-flex items-center gap-2 rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm font-medium text-ink-900 transition-colors hover:border-accent-600 hover:text-accent-600"
+                  >
+                    <Icon name={lens.icon} size={17} class="text-accent-600" />
+                    {lens.title}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <aside data-reveal class="lg:sticky lg:top-28 lg:self-start">
+          <div class="card p-7">
+            <h3 class="text-xs font-medium uppercase tracking-[0.14em] text-accent-600">
+              Free, the moment the scan finishes
+            </h3>
+            <ul class="mt-5 space-y-3.5">
+              {
+                AUDIT.free.map((item) => (
+                  <li class="flex items-start gap-2.5 text-sm leading-relaxed text-ink-600">
+                    <Icon name="check" size={17} class="mt-0.5 shrink-0 text-accent-600" />
+                    {item}
+                  </li>
+                ))
+              }
+            </ul>
+
+            <h3
+              class="mt-8 border-t border-ink-100 pt-7 text-xs font-medium uppercase tracking-[0.14em] text-ink-400"
+            >
+              In the 30-minute walkthrough
+            </h3>
+            <ul class="mt-5 space-y-3.5">
+              {
+                AUDIT.walkthrough.map((item) => (
+                  <li class="flex items-start gap-2.5 text-sm leading-relaxed text-ink-500">
+                    <Icon name="arrow-right" size={17} class="mt-0.5 shrink-0 text-ink-300" />
+                    {item}
+                  </li>
+                ))
+              }
+            </ul>
+
+            <a
+              href={AUDIT_APP_URL}
+              class="mt-7 flex items-center justify-center gap-2 rounded-lg bg-ink-900 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-600"
+            >
+              Request your free audit
+              <Icon name="arrow-right" size={16} />
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!--
+    The two lenses. Sections of one report, not separate products - but the
+    #security and #cost anchors are kept, because inbound links and rankings
+    already point at them.
+  -->
   {
-    AUDITS.map((audit, index) => (
+    AUDIT.lenses.map((lens, index) => (
       <section
-        id={audit.slug}
+        id={lens.slug}
         class:list={[
           'scroll-mt-24 py-20 lg:py-28',
-          index % 2 === 0 ? 'bg-white' : 'border-y border-ink-100 bg-sand-100',
+          index % 2 === 0 ? 'border-y border-ink-100 bg-sand-100' : 'bg-white',
         ]}
       >
         <div class="container-page">
-          <div class="grid gap-14 lg:grid-cols-[1fr_22rem] lg:gap-20">
-            <div>
-              <div data-reveal class="flex items-center gap-3">
-                <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent-50 text-accent-600">
-                  <Icon name={audit.icon} size={21} />
-                </span>
-                <p class="eyebrow">{audit.eyebrow}</p>
-              </div>
-
-              <h2 data-reveal class="heading-2 mt-5">
-                {audit.title}
-              </h2>
-              <p data-reveal class="lede mt-5 max-w-2xl">
-                {audit.summary}
-              </p>
-
-              <dl
-                data-reveal
-                class="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 border-y border-ink-100 py-8 sm:grid-cols-4"
-              >
-                {audit.scope.map((s) => (
-                  <div class="min-w-0">
-                    <dt class="sr-only">{s.label}</dt>
-                    <dd>
-                      <span class="block text-3xl font-semibold tracking-[-0.03em] text-ink-900">
-                        {s.value}
-                      </span>
-                      <span class="mt-1.5 block text-xs leading-snug text-ink-400">{s.label}</span>
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-
-              <h3 data-reveal class="heading-3 mt-12">
-                What we typically find
-              </h3>
-              <ul data-reveal class="mt-6 space-y-3">
-                {audit.sampleFindings.map((f) => (
-                  <li class="flex items-start gap-3.5 rounded-xl border border-ink-100 bg-white p-4">
-                    <span
-                      class:list={[
-                        'mt-0.5 shrink-0 rounded-md px-2 py-1 text-[0.6875rem] font-medium uppercase tracking-[0.06em]',
-                        severityStyles[f.severity],
-                      ]}
-                    >
-                      {f.severity}
-                    </span>
-                    <span class="text-sm leading-relaxed text-ink-600">{f.text}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <p
-                data-reveal
-                class="mt-7 border-l-2 border-accent-600 bg-white py-1 pl-5 text-sm leading-relaxed text-ink-600"
-              >
-                {audit.deliverable}
-              </p>
+          <div class="max-w-3xl">
+            <div data-reveal class="flex items-center gap-3">
+              <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent-50 text-accent-600">
+                <Icon name={lens.icon} size={21} />
+              </span>
+              <p class="eyebrow">{lens.eyebrow}</p>
             </div>
 
-            <aside data-reveal class="lg:sticky lg:top-28 lg:self-start">
-              <div class="card p-7">
-                <h3 class="text-xs font-medium uppercase tracking-[0.14em] text-accent-600">
-                  Free, the moment the scan finishes
-                </h3>
-                <ul class="mt-5 space-y-3.5">
-                  {audit.free.map((item) => (
-                    <li class="flex items-start gap-2.5 text-sm leading-relaxed text-ink-600">
-                      <Icon name="check" size={17} class="mt-0.5 shrink-0 text-accent-600" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                <h3 class="mt-8 border-t border-ink-100 pt-7 text-xs font-medium uppercase tracking-[0.14em] text-ink-400">
-                  In the 30-minute walkthrough
-                </h3>
-                <ul class="mt-5 space-y-3.5">
-                  {audit.walkthrough.map((item) => (
-                    <li class="flex items-start gap-2.5 text-sm leading-relaxed text-ink-500">
-                      <Icon name="arrow-right" size={17} class="mt-0.5 shrink-0 text-ink-300" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href={AUDIT_APP_URL}
-                  class="mt-7 flex items-center justify-center gap-2 rounded-lg bg-ink-900 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-600"
-                >
-                  Request this audit
-                  <Icon name="arrow-right" size={16} />
-                </a>
-              </div>
-            </aside>
+            <h2 data-reveal class="heading-2 mt-5">
+              {lens.title}
+            </h2>
+            <p data-reveal class="lede mt-5">
+              {lens.summary}
+            </p>
           </div>
+
+          <ul data-reveal class="mt-10 grid gap-3 lg:grid-cols-2">
+            {lens.sampleFindings.map((f) => (
+              <li class="flex items-start gap-3.5 rounded-xl border border-ink-100 bg-white p-4">
+                <span
+                  class:list={[
+                    'mt-0.5 shrink-0 rounded-md px-2 py-1 text-[0.6875rem] font-medium uppercase tracking-[0.06em]',
+                    severityStyles[f.severity],
+                  ]}
+                >
+                  {f.severity}
+                </span>
+                <span class="text-sm leading-relaxed text-ink-600">{f.text}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p
+            data-reveal
+            class="mt-7 max-w-3xl border-l-2 border-accent-600 bg-white py-1 pl-5 text-sm leading-relaxed text-ink-600"
+          >
+            {lens.deliverable}
+          </p>
         </div>
       </section>
     ))
@@ -262,11 +299,10 @@ const schema = {
   <section class="bg-ink-950">
     <div class="container-page py-20 lg:py-28">
       <div data-reveal class="mx-auto max-w-2xl text-center">
-        <h2 class="heading-2 !text-white">Both audits, no charge</h2>
+        <h2 class="heading-2 !text-white">One scan, no charge</h2>
         <p class="lede mt-5 !text-ink-300">
-          Tell us which one you want - or take both. Read-only access, your score and three worked
-          fixes in about ten minutes, then a 30-minute walkthrough with the engineer who ran it.
-          Nothing else attached.
+          Read-only access, your score and three worked fixes in about ten minutes, then a
+          30-minute walkthrough with the engineer who ran it. Nothing else attached.
         </p>
         <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button href={AUDIT_APP_URL} variant="invert" size="lg">Request your free audit</Button>
