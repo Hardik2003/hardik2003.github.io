@@ -42,4 +42,4 @@ For HIPAA and GDPR the same applies with specific additions around data residenc
 
 Scanning in CI and IaC catches misconfiguration while it is still a diff on a pull request, when fixing it is a one-line change. That is genuinely cheaper than finding it in production - but only if the tooling is tuned. An unfiltered scanner producing four hundred findings gets ignored, which is worse than not running it.
 
-**Start with our [free security audit](/free-audit).** Over 2,300 checks, and the report is yours regardless.
+**Start with our [free security audit](https://audit.sciontech.co/).** Over 2,300 checks, and the report is yours regardless.

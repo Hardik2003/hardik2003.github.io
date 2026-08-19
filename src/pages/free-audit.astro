@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import LogoMarquee from '../components/LogoMarquee.astro';
 import { AUDITS, AUDIT_PRINCIPLES } from '../data/audits';
-import { SITE } from '../consts';
+import { SITE, AUDIT_APP_URL } from '../consts';
 
 const steps = [
   {
@@ -75,7 +75,7 @@ const schema = {
           work with us.
         </p>
         <div class="mt-9 flex flex-wrap gap-3">
-          <Button href="/contact" size="lg">Request your free audit</Button>
+          <Button href={AUDIT_APP_URL} size="lg">Request your free audit</Button>
         </div>
       </div>
     </div>
@@ -166,7 +166,7 @@ const schema = {
                   ))}
                 </ul>
                 <a
-                  href="/contact"
+                  href={AUDIT_APP_URL}
                   class="mt-7 flex items-center justify-center gap-2 rounded-lg bg-ink-900 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-600"
                 >
                   Request this audit
@@ -247,7 +247,7 @@ const schema = {
           with the engineer who ran it. Nothing else attached.
         </p>
         <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button href="/contact" variant="invert" size="lg">Request your free audit</Button>
+          <Button href={AUDIT_APP_URL} variant="invert" size="lg">Request your free audit</Button>
         </div>
       </div>
     </div>

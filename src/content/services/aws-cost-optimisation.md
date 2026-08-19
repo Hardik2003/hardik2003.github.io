@@ -38,4 +38,4 @@ One-off optimisation decays. Within a year you are back where you started unless
 
 We set up tagging so cost is attributable to a team and a service, showback so those teams see what they spend, anomaly detection so a runaway workload surfaces in hours instead of at month end, and a quarterly review cadence so it stays a habit rather than a project.
 
-**Start with our [free cost audit](/free-audit).** We will tell you what is recoverable before you commit to anything.
+**Start with our [free cost audit](https://audit.sciontech.co/).** We will tell you what is recoverable before you commit to anything.
