@@ -59,4 +59,4 @@ That is not a dramatic number in isolation. What matters is that it was accumula
 
 The engineering value is not the $1,385. It is that after the work, the account stops generating new waste on its own.
 
-If you want to know where your own spend is going, [our cost audit is free](https://audit.sciontech.co/) and read-only. You get the findings whether or not you engage us.
+If you want to know where your own spend is going, [our cost audit is free](https://audit.sciontech.co/) and read-only. You get what the account is wasting, priced, plus your three highest-impact savings, whether or not you engage us.
