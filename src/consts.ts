@@ -37,8 +37,9 @@ export const OFFICES: Office[] = [
  * The audit app, which now owns the whole free-audit conversion path.
  *
  * Every "request the audit" call to action points here. The /free-audit
- * page stays as the explainer - what the two audits cover, what lands in
- * the report, how the four steps run - so the links that promise an
+ * page stays as the explainer - what the two audits cover, what is free
+ * against what comes in the walkthrough, how the three steps run - so the
+ * links that promise an
  * explanation ("see what is in the report", "what the cost audit covers")
  * deliberately stay internal. Sending those to the app would answer a
  * different question than the one the visitor clicked.

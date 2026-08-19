@@ -3,15 +3,8 @@
   "configurations": [
     {
       "name": "sciontech",
-      "runtimeExecutable": "/Users/nipunprekh/.nvm/versions/node/v22.23.1/bin/node",
-      "runtimeArgs": [
-        "/Users/nipunprekh/sciontech-website/node_modules/astro/bin/astro.mjs",
-        "dev",
-        "--root",
-        "/Users/nipunprekh/sciontech-website",
-        "--port",
-        "4321"
-      ],
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "4321"],
       "port": 4321
     }
   ]
