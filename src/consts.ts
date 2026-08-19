@@ -33,6 +33,21 @@ export const OFFICES: Office[] = [
   { city: 'Ahmedabad', region: 'Gujarat', country: 'IN', countryName: 'India' },
 ];
 
+/**
+ * The audit app, which now owns the whole free-audit conversion path.
+ *
+ * Every "request the audit" call to action points here. The /free-audit
+ * page stays as the explainer - what the two audits cover, what lands in
+ * the report, how the four steps run - so the links that promise an
+ * explanation ("see what is in the report", "what the cost audit covers")
+ * deliberately stay internal. Sending those to the app would answer a
+ * different question than the one the visitor clicked.
+ *
+ * Same tab on purpose: same brand, same visual identity, and forcing a new
+ * window takes the choice away from the visitor.
+ */
+export const AUDIT_APP_URL = 'https://audit.sciontech.co/';
+
 export const CONTACT = {
   email: 'connect@sciontech.co',
   phone: '+91-9825291410',
@@ -100,7 +115,7 @@ export const FOOTER_NAV: { title: string; links: { label: string; href: string }
   {
     title: 'Resources',
     links: [
-      { label: 'Free AWS audit', href: '/free-audit' },
+      { label: 'Free AWS audit', href: AUDIT_APP_URL },
       { label: 'FAQ', href: '/faq' },
       { label: 'Privacy policy', href: '/privacy-policy' },
       { label: 'Terms and conditions', href: '/terms-and-conditions' },

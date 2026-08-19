@@ -13,7 +13,7 @@ import LogoMarquee from '../components/LogoMarquee.astro';
 import Stats from '../components/Stats.astro';
 import CTA from '../components/CTA.astro';
 import Icon from '../components/Icon.astro';
-import { SITE } from '../consts';
+import { SITE, AUDIT_APP_URL } from '../consts';
 
 const services = (await getCollection('services'))
   .filter((s) => s.data.featured)
@@ -86,7 +86,7 @@ const capabilities = [
           </p>
 
           <div data-reveal data-reveal-delay="180" class="mt-9 flex flex-wrap gap-3">
-            <Button href="/free-audit" size="lg">Get a free AWS audit</Button>
+            <Button href={AUDIT_APP_URL} size="lg">Get a free AWS audit</Button>
             <Button href="/work" variant="secondary" size="lg" icon={false}>
               See our case studies
             </Button>
