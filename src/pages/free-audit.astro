@@ -16,7 +16,7 @@ const steps = [
   {
     duration: '~60 seconds',
     title: 'Connect in one click',
-    body: 'You deploy a CloudFormation stack in your own account. It creates a read-only IAM role scoped by an external ID unique to you. You never send us a credential, because there is no credential to send.',
+    body: 'You deploy a CloudFormation stack in your own account. It creates a read-only IAM role scoped by an external ID unique to you, carrying two AWS-managed policies - SecurityAudit and ViewOnlyAccess, nothing bespoke. You never send us a credential, and deleting the stack ends our access immediately.',
   },
   {
     duration: '3-15 minutes',
