@@ -29,10 +29,10 @@ export const AUDITS: Audit[] = [
     shortTitle: 'Security audit',
     icon: 'shield-search',
     summary:
-      'Over 2,300 automated checks across every region in your account, mapped to SOC 2, ISO 27001, GDPR, CIS and NIST - with a risk score, a prioritised fix list, and a 90-day roadmap.',
-    headline: { value: '2,304', label: 'Checks executed per account' },
+      '637 automated checks across every region with active resources, mapped to SOC 2, ISO 27001, GDPR, CIS and NIST - with a risk score, a prioritised fix list, and a 90-day roadmap.',
+    headline: { value: '637', label: 'Checks executed per account' },
     scope: [
-      { value: '2,304', label: 'Automated checks' },
+      { value: '637', label: 'Automated checks' },
       { value: '418', label: 'Resources audited' },
       { value: '4', label: 'AWS regions covered' },
       { value: '5', label: 'Compliance frameworks mapped' },
