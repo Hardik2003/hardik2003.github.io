@@ -37,6 +37,10 @@ jobs:
           # committed in src/consts.ts. Set this repo variable only to point at
           # a different Web3Forms inbox.
           PUBLIC_WEB3FORMS_KEY: ${{ vars.PUBLIC_WEB3FORMS_KEY }}
+          # Optional, same arrangement: the measurement id is committed in
+          # src/consts.ts. Set this repo variable only to report a fork or a
+          # staging build into a different property.
+          PUBLIC_GA_ID: ${{ vars.PUBLIC_GA_ID }}
 
       - uses: actions/configure-pages@v5
 
