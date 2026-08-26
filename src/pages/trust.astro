@@ -1,0 +1,220 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CTA from '../components/CTA.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, AUDIT_APP_URL } from '../consts';
+
+/**
+ * The page a prospect forwards to their own security team.
+ *
+ * Everything here was already true and already written down, scattered across
+ * the audit page, the methodology page and a CloudFormation template nobody
+ * reads unprompted. Scattered is the same as absent when the reader is a CISO
+ * being asked to approve third-party access: they need one URL they can send
+ * on, and prose in a marketing page is not something anyone forwards.
+ *
+ * Written to be checkable rather than reassuring. Every claim on this page is
+ * either verifiable in their own AWS console or falsifiable by reading the
+ * template we link to.
+ */
+
+/** What the role can and cannot do. Both halves matter equally. */
+const permissions = {
+  can: [
+    'List and describe resources: instances, buckets, databases, security groups, IAM roles',
+    'Read configuration: encryption settings, logging state, network rules, retention policies',
+    'Read CloudWatch metrics, to tell an idle resource from a busy one',
+    'Read AWS public price list data, which is a catalogue and says nothing about your account',
+  ],
+  cannot: [
+    'Create, modify, delete or restart anything',
+    'Read the contents of your S3 objects, database rows, logs or secrets',
+    'Read Secrets Manager or Parameter Store values',
+    'Access anything after you delete the CloudFormation stack',
+  ],
+};
+
+const facts = [
+  {
+    icon: 'zap',
+    title: 'You hold the off switch',
+    body: 'Access is a CloudFormation stack in your account. Delete it and our access ends that second - no email to us, no offboarding request, no waiting on a support queue. That is the whole revocation process.',
+  },
+  {
+    icon: 'lock',
+    title: 'No credentials change hands',
+    body: 'The stack creates a cross-account IAM role guarded by an external ID unique to you. You never send us a key, because there is no key to send. Reconnecting mints a fresh external ID, so a link from an old invitation stops working.',
+  },
+  {
+    icon: 'check',
+    title: 'Two AWS-managed policies, nothing bespoke',
+    body: 'SecurityAudit and ViewOnlyAccess, both written and maintained by AWS. We did not author a permission set and ask you to trust our judgement about its scope.',
+  },
+  {
+    icon: 'shield-search',
+    title: 'Every action lands in your CloudTrail',
+    body: 'Each call we make appears in your own logs, attributed to the role you created. You can audit exactly what we read, when, and how often - without taking our word for any of it.',
+  },
+];
+
+const dataHandling = [
+  ['What we store', 'Findings, your risk score, and the resource identifiers each finding refers to. Not the contents of any resource.'],
+  ['Where it lives', 'A managed Postgres database on AWS, isolated per account by row-level security so one customer cannot read another. Scans run on AWS Fargate in our own account and retain nothing once the task exits. If your organisation has a data residency requirement, ask us and we will confirm the region in writing.'],
+  ['Who can read it', 'You, and the engineer who runs your walkthrough. Access outside your own account is restricted to an allowlist and every such view is logged with the address that made it.'],
+  ['How long we keep it', 'Until you ask us to remove it. Removing a connected account from your dashboard deletes its scans and findings immediately.'],
+  ['Subprocessors', 'AWS (compute and scanning), Supabase (database and authentication), Vercel (application hosting), Resend (transactional email). No analytics or advertising tooling runs on signed-in pages.'],
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Trust and security',
+  description:
+    'How the read-only AWS audit works: what the IAM role can and cannot do, how to revoke access, where scan data lives, and who processes it.',
+  url: `${SITE.url}/trust`,
+};
+---
+
+<Base
+  title="Trust and security"
+  description="What our read-only AWS role can and cannot do, how to revoke access in one step, where scan data is stored, and which subprocessors are involved. Written to be forwarded to your security team."
+  breadcrumbs={[{ name: 'Trust', href: '/trust' }]}
+  schema={[schema]}
+>
+  <PageHero
+    eyebrow="Trust and security"
+    title="What you are actually granting"
+    lede="You are being asked to give a third party read access to your AWS account. That is a reasonable thing to hesitate over. This page is written to be forwarded to whoever has to approve it."
+  />
+
+  <!-- The four facts that answer the objection, before any detail -->
+  <section class="bg-white py-16 lg:py-24">
+    <div class="container-page">
+      <div class="grid gap-8 sm:grid-cols-2">
+        {
+          facts.map((f) => (
+            <div data-reveal class="rounded-2xl border border-ink-100 bg-ink-25 p-8">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-600/10 text-accent-600">
+                <Icon name={f.icon} size={20} />
+              </span>
+              <h2 class="mt-5 text-lg font-semibold tracking-[-0.01em] text-ink-900">{f.title}</h2>
+              <p class="mt-3 leading-relaxed text-ink-500">{f.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Can / cannot, side by side, because the second column is the point -->
+  <section class="border-y border-ink-100 bg-ink-25 py-16 lg:py-24">
+    <div class="container-page">
+      <p data-reveal class="eyebrow">The permission set</p>
+      <h2 data-reveal class="heading-2 mt-5 max-w-2xl">
+        Read-only means read-only. Here is the boundary.
+      </h2>
+      <p data-reveal class="lede mt-5 max-w-2xl">
+        The template is public. Read it before you deploy it rather than after, and check the two
+        policy ARNs against AWS's own documentation.
+      </p>
+
+      <div class="mt-12 grid gap-8 lg:grid-cols-2">
+        <div data-reveal class="rounded-2xl border border-ink-100 bg-white p-8">
+          <h3 class="text-sm font-semibold uppercase tracking-[0.12em] text-ink-400">
+            What the role can read
+          </h3>
+          <ul class="mt-6 space-y-4">
+            {
+              permissions.can.map((p) => (
+                <li class="flex gap-3 leading-relaxed text-ink-500">
+                  <span class="mt-1 shrink-0 text-accent-600">
+                    <Icon name="check" size={16} />
+                  </span>
+                  {p}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div data-reveal class="rounded-2xl border border-ink-900 bg-ink-900 p-8">
+          <h3 class="text-sm font-semibold uppercase tracking-[0.12em] text-ink-300">
+            What it cannot do
+          </h3>
+          <ul class="mt-6 space-y-4">
+            {
+              permissions.cannot.map((p) => (
+                <li class="flex gap-3 leading-relaxed text-ink-200">
+                  <span class="mt-1 shrink-0 text-white/40">
+                    <Icon name="x" size={16} />
+                  </span>
+                  {p}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div data-reveal class="mt-8">
+        <a
+          href="https://audit.sciontech.co/cloudformation/sciontech-audit-role.yaml"
+          class="inline-flex items-center gap-2 text-sm font-medium text-accent-600 underline-offset-4 hover:underline"
+        >
+          Read the CloudFormation template
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- This is the industry standard, not an unusual ask -->
+  <section class="bg-white py-16 lg:py-24">
+    <div class="container-page">
+      <div class="mx-auto max-w-3xl">
+        <p data-reveal class="eyebrow">If this feels like a lot to grant</p>
+        <h2 data-reveal class="heading-2 mt-5">It is the same mechanism Vanta and Drata use</h2>
+        <p data-reveal class="lede mt-5">
+          A cross-account IAM role with an external ID is how every compliance and cloud security
+          platform connects to AWS. Vanta, Drata and Comp AI all ask for exactly this, because AWS
+          designed it as the alternative to sharing credentials. If your team has onboarded any of
+          them, this is a decision they have already made once.
+        </p>
+        <p data-reveal class="mt-5 leading-relaxed text-ink-500">
+          Where we differ is scope. Those platforms monitor continuously and hold their access
+          indefinitely. Ours runs when you ask it to, and most people delete the stack when the
+          audit is done. That is a supported way to use this, not a workaround.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data handling, as a table because that is what gets forwarded -->
+  <section class="border-t border-ink-100 bg-ink-25 py-16 lg:py-24">
+    <div class="container-page">
+      <p data-reveal class="eyebrow">Data handling</p>
+      <h2 data-reveal class="heading-2 mt-5 max-w-2xl">What we keep, and for how long</h2>
+
+      <dl data-reveal class="mt-10 divide-y divide-ink-100 border-y border-ink-100">
+        {
+          dataHandling.map(([term, def]) => (
+            <div class="grid gap-2 py-6 sm:grid-cols-[14rem_1fr] sm:gap-8">
+              <dt class="text-sm font-semibold text-ink-900">{term}</dt>
+              <dd class="leading-relaxed text-ink-500">{def}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+    </div>
+  </section>
+
+  <CTA
+    badge={false}
+    title="Questions your security team needs answered?"
+    body="Send them over. A senior engineer will answer them directly, before you deploy anything."
+    primaryLabel="Ask our team"
+    primaryHref="/contact"
+  />
+</Base>
