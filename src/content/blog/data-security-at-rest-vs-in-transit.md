@@ -1,128 +1,58 @@
 ---
 title: "Data security: at rest vs. in transit"
-description: What the two states of data actually mean, why the distinction matters for compliance, and how to implement encryption for both on AWS using KMS, TLS and private networking.
+description: Encryption at rest is largely solved by default on AWS. The gaps we actually find are inside the VPC, and in who can decrypt.
 pubDate: 2025-02-09
 category: Technology
 author: Hardik Kamdar
 image: ../../assets/blog/data-security.png
 imageAlt: Illustration contrasting encrypted data in storage with encrypted data moving across a network
-readingTime: 8
+readingTime: 7
 ---
 
-In today's digital landscape, securing data is not just a necessity but a fundamental requirement for any business handling sensitive information. Whether it's customer data, financial records, intellectual property, or operational logs, enforcing robust security measures is crucial. AWS provides a comprehensive suite of tools and services to protect data both at rest and in transit. In this post we explore what these terms mean, why they matter, and how your organisation can implement best practices for airtight data protection.
+The distinction between data at rest and data in transit is the first thing any compliance questionnaire asks about, and it produces a predictable answer: yes, we encrypt both. That answer is usually true and usually not very interesting, because on AWS the at-rest half has quietly become the default and the in-transit half is rarely where the exposure is.
 
-## Understanding data security
+The questions worth asking are narrower. Which traffic is unencrypted *inside* your own network, and who can decrypt the things you have encrypted.
 
-### What is data at rest?
+## At rest is mostly handled, and that is the problem
 
-Data at rest refers to information that is stored on physical or cloud-based storage devices, such as:
+New EBS volumes can be encrypted by default with an account setting. S3 has encrypted new objects by default since 2023. RDS encrypts at creation if you tick the box, DynamoDB encrypts always. Turning these on is a morning's work, and most accounts we assess have done it.
 
-- Databases (RDS, DynamoDB)
-- Object storage (S3)
-- Block storage (EBS)
-- Backups and snapshots
+What that leaves is the long tail, which no default reaches:
 
-This data remains inactive until it is accessed, processed, or modified.
+**Volumes and snapshots created before the default was enabled.** The setting applies going forward. It does not retroactively encrypt anything, and an unencrypted volume cannot be encrypted in place. It has to be snapshotted, copied with encryption, and restored, which means a maintenance window nobody schedules. We routinely find volumes from 2019 sitting unencrypted next to compliant ones created last month.
 
-### What is data in transit?
+**Snapshots shared or made public.** A snapshot of an encrypted volume inherits its encryption. A snapshot of an unencrypted one does not, and the sharing controls are separate from the encryption controls. This is the finding that turns up in almost every audit and surprises people every time.
 
-Data in transit refers to information actively moving between systems or locations, such as:
+**Backups in a different account.** Cross-account backup copies need the key policy to permit the destination account. Teams grant that once, correctly, and then nobody revisits whether the destination account still needs it.
 
-- Between users and applications
-- From on-premises to the cloud
-- Between AWS services across a VPC or over the internet
+## In transit is where the actual gaps are
 
-During transit, data is vulnerable to interception, eavesdropping, and unauthorised access if not properly encrypted.
+Everyone terminates TLS at the load balancer. Far fewer encrypt what happens behind it.
 
-## Why data security matters
+Traffic between an ALB and its targets, between an application and its database, between services in different subnets: none of this is encrypted unless you configure it. The usual reasoning is that it never leaves the VPC, so it is fine. That reasoning treats the VPC as a trust boundary, which it is not. Anything with a network interface in that VPC can see the traffic, and a compromised container in one subnet is a considerably more common starting point than an attacker on the public internet.
 
-**Regulatory compliance.** Industries like finance, healthcare, and e-commerce must adhere to standards such as GDPR, HIPAA, PCI-DSS, and SOC 2.
+The three that matter in practice:
 
-**Preventing breaches.** With cyberattacks on the rise, a single breach can inflict financial loss, reputational damage, and legal penalties.
+**Database connections.** RDS supports TLS on every engine and most applications connect without it because the driver does not require it. Enforce it at the parameter group so the database refuses unencrypted connections, rather than trusting each client to opt in.
 
-**Customer trust.** Demonstrating robust security builds credibility and fosters long-term loyalty.
+**Load balancer to target.** Terminating TLS at the ALB and forwarding plaintext to the instances is the default pattern in most tutorials. Re-encrypting to the target costs a certificate and some latency.
 
-**Business continuity.** Proper data protection ensures operations are not disrupted by security incidents or data loss.
+**Anything crossing an availability zone.** It leaves the physical building. Whether that matters depends on your threat model, but it is worth deciding deliberately rather than by omission.
 
-## Implementing security for data at rest on AWS
+## Who can decrypt is the question underneath both
 
-### 1. AWS Key Management Service (KMS)
+Encryption is a statement about who holds the key, and on AWS that is a policy document rather than a cryptographic property.
 
-- Centralised key management for all your encryption needs
-- Supports envelope encryption to efficiently handle large volumes of data
-- Natively integrated with S3, RDS, DynamoDB, EBS, and more
+An S3 bucket encrypted with SSE-S3 is encrypted against someone who steals a disk in an AWS data centre. It is not encrypted against anyone in your account with `s3:GetObject`, because AWS decrypts transparently on read. If the threat you are actually managing is an over-permissioned IAM role, SSE-S3 does nothing about it and the compliance checkbox is still green.
 
-### 2. Amazon S3 encryption
+SSE-KMS with a customer managed key changes that, because access now requires permission on the key as well as on the bucket, and every decrypt is logged in CloudTrail with the principal that requested it. That log is what turns encryption from an assertion into something you can audit after an incident.
 
-Server-side encryption (SSE):
+This is the distinction we look for when assessing an account: not whether encryption is enabled, but whether the key policy is narrower than the resource policy. If everyone who can read the object can also use the key, the encryption is protecting AWS from a stolen disk and protecting you from very little.
 
-- SSE-S3 (managed by AWS)
-- SSE-KMS (your keys in KMS)
-- SSE-C (customer-provided keys)
+## What we check first
 
-Client-side encryption: encrypt data locally before upload.
+Default encryption enabled at the account level for EBS. Any volume or snapshot predating it. Snapshot sharing settings. RDS forcing TLS at the parameter group. Whether customer managed keys exist at all, and if so whether their policies name principals or grant to the account root.
 
-### 3. EBS volume encryption
+That last one is the most common single finding. A key policy granting `kms:Decrypt` to the account root delegates the decision to IAM, which means the key adds logging but no additional control. Sometimes that is a deliberate trade. More often nobody knew there was a choice.
 
-- Encrypt EBS block storage volumes using KMS
-- Automatic encryption of snapshots and restored volumes
-
-### 4. RDS and DynamoDB encryption
-
-- Transparent, storage-level encryption for relational databases (MySQL, PostgreSQL, SQL Server, Oracle) and DynamoDB
-- Keys managed and rotated through KMS
-
-### 5. Backup and snapshot encryption
-
-- AWS Backup supports encryption for backup vaults
-- Encrypted EBS snapshots inherit the volume's encryption settings
-
-## Implementing security for data in transit on AWS
-
-### 1. TLS encryption
-
-- Enforce TLS 1.2+ for all application traffic (API Gateway, ELB/ALB, CloudFront)
-- Use AWS Certificate Manager to provision and manage TLS certificates
-
-### 2. VPN and Direct Connect
-
-- Site-to-site VPN: encrypted tunnels from on-premises to AWS
-- AWS Direct Connect: dedicated private fibre link for reduced exposure
-
-### 3. Secure API access
-
-- IAM policies and security groups to control access
-- AWS Signature Version 4 (SigV4) for request signing and integrity
-
-### 4. Private networking options
-
-- AWS PrivateLink: privately expose services across VPCs without internet
-- VPC Peering: direct, private communication between VPCs
-
-## Who needs these security measures?
-
-While all organisations benefit from data encryption, certain industries face heightened requirements:
-
-- Financial services (banks, fintechs, payment processors)
-- Healthcare (hospitals, research institutions)
-- E-commerce and retail (credit card processing, PII storage)
-- Government and defence (classified and mission-critical data)
-- Technology and SaaS (multi-tenant cloud services)
-- Media and entertainment (copyrighted content delivery)
-- Education (student records, research archives)
-
-## Best practices for secure AWS data management
-
-1. Enable MFA on all AWS accounts and privileged roles.
-2. Implement role-based access control (RBAC) with least-privilege IAM policies.
-3. Rotate encryption keys regularly in AWS KMS.
-4. Monitor and audit via AWS CloudTrail, AWS Config, and AWS Security Hub.
-5. Run continuous assessments with Amazon Inspector and Amazon GuardDuty.
-6. Use AWS Secrets Manager to store and rotate database credentials.
-7. Enable Amazon Macie to discover and classify sensitive data in S3.
-
-## Conclusion and next steps
-
-Data security is not optional - it is a business imperative. AWS's rich security ecosystem lets you safeguard data both at rest and in transit, achieve regulatory compliance, and build customer trust.
-
-If your organisation needs expert guidance on crafting or auditing your AWS security posture, [get in touch](/contact) to learn how we can fortify your data defences.
+If you want that assessment run against your own account, the [free audit](/free-audit) covers all of it read-only, or [get in touch](/contact) and we will go through the findings with you.
