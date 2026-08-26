@@ -13,7 +13,7 @@ export default defineConfig({
   // GitHub Pages cannot do server-side 301s and ignores public/_redirects,
   // so these are built as static redirect pages (meta refresh + canonical).
   // Google follows them and passes most ranking signal, though a real 301
-  // is stronger — public/_redirects is kept so that moving to Cloudflare
+  // is stronger - public/_redirects is kept so that moving to Cloudflare
   // Pages or Netlify later upgrades these to true 301s with no extra work.
   redirects: {
     '/policy': '/privacy-policy',
