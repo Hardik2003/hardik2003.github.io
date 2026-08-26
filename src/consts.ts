@@ -145,6 +145,9 @@ export const FOOTER_NAV: { title: string; links: { label: string; href: string }
     links: [
       { label: 'Free AWS audit', href: AUDIT_APP_URL },
       { label: 'FAQ', href: '/faq' },
+      // Sits with the audit rather than with the legal pages: it is read by
+      // someone deciding whether to grant access, not by someone checking terms.
+      { label: 'Trust and security', href: '/trust' },
       { label: 'Privacy policy', href: '/privacy-policy' },
       { label: 'Terms and conditions', href: '/terms-and-conditions' },
     ],

@@ -81,7 +81,30 @@ const schema = {
         </p>
         <div class="mt-9 flex flex-wrap gap-3">
           <Button href={AUDIT_APP_URL} size="lg">Request your free audit</Button>
+          <Button href="/trust" variant="ghost" size="lg">What you are granting</Button>
         </div>
+
+        <!--
+          The strongest sentence on this page used to sit inside step one of a
+          three-step list, halfway down. It is not a promise the reader has to
+          take on faith, it is a control they already hold, which makes it the
+          thing most likely to unblock someone hesitating - so it belongs
+          where they are hesitating, next to the button.
+        -->
+        <p data-reveal class="mt-8 flex items-start gap-3 text-sm leading-relaxed text-ink-500">
+          <span class="mt-0.5 shrink-0 text-accent-600">
+            <Icon name="zap" size={18} />
+          </span>
+          <span>
+            <strong class="font-semibold text-ink-900">You can revoke it in one step.</strong>{' '}
+            Access is a CloudFormation stack in your own account. Delete the stack and our access
+            ends immediately - no email to us, nothing to offboard. Read-only throughout, and you
+            never send us a credential.
+            <a href="/trust" class="ml-1 font-medium text-accent-600 underline-offset-4 hover:underline">
+              See exactly what the role can read
+            </a>.
+          </span>
+        </p>
       </div>
     </div>
   </section>

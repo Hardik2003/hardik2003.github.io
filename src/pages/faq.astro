@@ -30,6 +30,14 @@ const faqs = [
     a: 'That is the most common arrangement. We embed alongside your engineers rather than replacing them, and a deliberate part of every engagement is transferring what we build - documentation, runbooks, and pairing - so your team owns it once we step back.',
   },
   {
+    q: 'Why do you need read-only access to our AWS account, and how do we revoke it?',
+    a: 'Because an audit that cannot read your configuration is a questionnaire. You deploy a CloudFormation stack that creates a cross-account IAM role carrying two AWS-managed policies, SecurityAudit and ViewOnlyAccess, guarded by an external ID unique to you. No credential ever changes hands. Every call we make appears in your own CloudTrail, attributed to the role you created, so you can audit what we read without taking our word for it. Deleting the stack ends our access that second - there is nothing to offboard and nobody to email. The full breakdown is on our trust page.',
+  },
+  {
+    q: 'Is granting a third party access to our cloud account normal?',
+    a: 'It is the standard mechanism. Vanta, Drata and Comp AI all connect to AWS the same way, with a cross-account role and an external ID, because AWS designed it as the alternative to sharing keys. If your team has onboarded any compliance platform, this is a decision they have already made. Where we differ is duration: those tools monitor continuously and keep their access indefinitely, whereas ours runs when you ask it to. Most people delete the stack once the audit is done, which is a supported way to use it rather than a workaround.',
+  },
+  {
     q: 'How do you handle compliance requirements like HIPAA or SOC 2?',
     a: 'We design for the framework from the start rather than retrofitting. That means encryption at rest and in transit, centralised audit logging, access governance, and evidence generated automatically by the pipeline. We delivered a fully certified, audit-ready HIPAA telemedicine platform in three months.',
   },
