@@ -70,7 +70,7 @@ as marketing and clients often strike them out anyway.
 > to work with and they explain their reasoning rather than just handing
 > over changes."
 >
-> — [Name], [Role], PADI Systems
+> - [Name], [Role], PADI Systems
 
 ### Tipedia
 
@@ -78,7 +78,7 @@ as marketing and clients often strike them out anyway.
 > covered that gap properly, and left us with documentation our own team
 > can actually follow."
 >
-> — [Name], [Role], Tipedia
+> - [Name], [Role], Tipedia
 
 ### Simply Analytics
 
@@ -86,7 +86,7 @@ as marketing and clients often strike them out anyway.
 > ScionTech restructured it, and [specific measurable change]. Deployments
 > stopped being something we scheduled around."
 >
-> — [Name], [Role], Simply Analytics
+> - [Name], [Role], Simply Analytics
 
 ### Tatango
 
@@ -94,7 +94,7 @@ as marketing and clients often strike them out anyway.
 > anything in production. What stood out was that they flagged the risks
 > we had not asked about, which is not what we expected."
 >
-> — [Name], [Role], Tatango
+> - [Name], [Role], Tatango
 
 ### AnswerDash
 
@@ -102,7 +102,7 @@ as marketing and clients often strike them out anyway.
 > rather than proposing a rebuild, and [outcome]. A sensible team to have
 > alongside your own engineers."
 >
-> — [Name], [Role], AnswerDash
+> - [Name], [Role], AnswerDash
 
 ### Ravenna Solutions
 
@@ -110,21 +110,21 @@ as marketing and clients often strike them out anyway.
 > cause rather than the symptom, and handed over runbooks so we can handle
 > it ourselves now."
 >
-> — [Name], [Role], Ravenna Solutions
+> - [Name], [Role], Ravenna Solutions
 
 ### Cylogy
 
 > "ScionTech handled [scope] across our AWS estate. Clear communication,
 > no surprises, and the work held up after they finished."
 >
-> — [Name], [Role], Cylogy
+> - [Name], [Role], Cylogy
 
 ### Red Wire Services
 
 > "We needed senior cloud help intermittently rather than a full-time hire.
 > That is exactly what ScionTech gave us, and [outcome]."
 >
-> — [Name], [Role], Red Wire Services
+> - [Name], [Role], Red Wire Services
 
 ---
 

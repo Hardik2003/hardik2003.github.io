@@ -1,6 +1,6 @@
 # ScionTech website
 
-Static marketing site for [sciontech.co](https://sciontech.co) — DevSecOps, cloud security and secure CI/CD services.
+Static marketing site for [sciontech.co](https://sciontech.co) - DevSecOps, cloud security and secure CI/CD services.
 
 Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com). Ships as pure HTML, CSS and images with **zero JavaScript bundles**, which is what keeps Core Web Vitals high and helps search ranking.
 
@@ -37,7 +37,7 @@ Each file starts with a frontmatter block that controls how it appears. To add a
 ```markdown
 ---
 title: "Your post title"
-description: Shown in search results and link previews. Aim for 140–160 characters.
+description: Shown in search results and link previews. Aim for 140-160 characters.
 pubDate: 2026-01-15
 category: Technology
 author: Hardik Kamdar
@@ -49,17 +49,17 @@ readingTime: 6
 Your content here, in Markdown.
 ```
 
-Images go in `src/assets/` (not `public/`) so Astro can optimise them — it generates WebP and AVIF at multiple sizes automatically. The schemas in `src/content.config.ts` validate every file at build time, so a typo in frontmatter fails the build rather than shipping broken.
+Images go in `src/assets/` (not `public/`) so Astro can optimise them - it generates WebP and AVIF at multiple sizes automatically. The schemas in `src/content.config.ts` validate every file at build time, so a typo in frontmatter fails the build rather than shipping broken.
 
-Site-wide values — phone number, address, navigation, headline stats — live in `src/consts.ts`.
+Site-wide values - phone number, address, navigation, headline stats - live in `src/consts.ts`.
 
 ## The contact form
 
-Static hosting has no backend, so enquiries are delivered by [Web3Forms](https://web3forms.com). This is already configured and working — no setup needed.
+Static hosting has no backend, so enquiries are delivered by [Web3Forms](https://web3forms.com). This is already configured and working - no setup needed.
 
 Submissions arrive at the address the access key is registered to. The email subject is built from the selected service and the enquirer's name, and `replyto` is set to their address so hitting Reply in your inbox goes straight back to them.
 
-The access key lives in `src/consts.ts`. **It is public by design** — Web3Forms expects it in page HTML, and it can only deliver to its registered address. It cannot be used to read past submissions or redirect them elsewhere. To point an environment at a different inbox, set `PUBLIC_WEB3FORMS_KEY`.
+The access key lives in `src/consts.ts`. **It is public by design** - Web3Forms expects it in page HTML, and it can only deliver to its registered address. It cannot be used to read past submissions or redirect them elsewhere. To point an environment at a different inbox, set `PUBLIC_WEB3FORMS_KEY`.
 
 The form also works with JavaScript disabled: the `<form action>` posts directly to Web3Forms. With JS on, the submission is intercepted so the visitor stays on the page and sees inline success or error text.
 
@@ -69,7 +69,7 @@ Spam is filtered by a hidden `botcheck` honeypot. If you start getting spam anyw
 
 The build output in `dist/` is plain static files, so any host works.
 
-**Cloudflare Pages or Netlify** (recommended — both free, both read `public/_redirects` automatically):
+**Cloudflare Pages or Netlify** (recommended - both free, both read `public/_redirects` automatically):
 
 1. Push this repo to GitHub
 2. Connect the repo in the host's dashboard
@@ -77,7 +77,7 @@ The build output in `dist/` is plain static files, so any host works.
 4. Add `PUBLIC_FORM_ENDPOINT` as an environment variable
 5. Point the `sciontech.co` DNS at the host
 
-**GitHub Pages** works too, but ignores `public/_redirects` — you would lose the 301s from the old URLs, which costs search ranking. Prefer one of the above.
+**GitHub Pages** works too, but ignores `public/_redirects` - you would lose the 301s from the old URLs, which costs search ranking. Prefer one of the above.
 
 ## SEO
 
@@ -103,7 +103,7 @@ src/
 ├── content/         all editable content (Markdown)
 ├── data/            testimonials and client logos
 ├── layouts/         page shell, SEO head, schema
-├── pages/           routes — file path maps to URL
+├── pages/           routes - file path maps to URL
 ├── styles/          design tokens and global CSS
 └── consts.ts        site config, nav, contact details
 public/              files served as-is, including _redirects

@@ -61,7 +61,7 @@ export const CONTACT = {
  * Google Analytics measurement ID.
  *
  * This was G-YJ864EZPN0 for a long time, described in this file as "carried
- * over from the previous site" — which turned out to be the literal truth:
+ * over from the previous site" - which turned out to be the literal truth:
  * the property belonged to whoever built the old site, so every visit here
  * was reporting into an account we do not own and cannot read. The history
  * stays with them; this is a fresh baseline.
@@ -69,7 +69,7 @@ export const CONTACT = {
  * Committed rather than required, matching the Web3Forms key below: a static
  * marketing site that silently stops measuring itself because a repo variable
  * was never set is worse than one with an id in source. The id is public in
- * the page anyway — it identifies a destination, and grants nothing.
+ * the page anyway - it identifies a destination, and grants nothing.
  *
  * Set PUBLIC_GA_ID to override it, and set it to a property you own if this
  * site is ever forked or staged.
@@ -79,7 +79,7 @@ const DEFAULT_GA_MEASUREMENT_ID = 'G-HWVZFDMXCJ';
 /*
  * Trimmed and emptiness-checked for the same reason as the key below: an
  * unset repo variable arrives as an empty string rather than as undefined,
- * and `??` would pass it straight through — producing a gtag call configured
+ * and `??` would pass it straight through - producing a gtag call configured
  * with no destination, which fails silently and looks exactly like working
  * analytics until someone checks the reports.
  */
