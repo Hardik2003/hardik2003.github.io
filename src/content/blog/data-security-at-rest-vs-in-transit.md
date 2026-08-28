@@ -4,8 +4,8 @@ description: Encryption at rest is largely solved by default on AWS. The gaps we
 pubDate: 2025-02-09
 category: Technology
 author: Hardik Kamdar
-image: ../../assets/blog/data-security.png
-imageAlt: Illustration contrasting encrypted data in storage with encrypted data moving across a network
+image: ../../assets/blog/findings-register.png
+imageAlt: "The findings register from a real audit: unencrypted EBS volume and snapshot in ap-south-1, RDS without SSL enforcement, each with the business risk and required action."
 readingTime: 7
 ---
 
