@@ -28,6 +28,14 @@ const work = defineCollection({
       summary: z.string(),
       image: image(),
       date: z.coerce.date(),
+      /*
+       * The year the work was actually done, which is not the same as the
+       * date this page was written. Case studies that state outcomes with no
+       * timeline read as invented, because a real engagement always has one.
+       * Optional so a study without a confirmed year says nothing rather
+       * than guessing.
+       */
+      engagementYear: z.number().int().optional(),
       tags: z.array(z.string()).default([]),
       results: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
       stack: z.array(z.string()).default([]),

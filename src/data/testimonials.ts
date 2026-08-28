@@ -32,16 +32,16 @@ export type Testimonial = {
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    quote: 'Seamless scaling for our SaaS platform',
-    body: 'ScionTech brought clarity and control to our DevOps processes on AWS. Their automation and monitoring solutions helped us scale our SaaS platform seamlessly while maintaining high performance and security. A truly dependable partner in our growth journey.',
+    quote: 'They fixed the scaling problem we had been living with',
+    body: 'We had been working around it for a year. They found it in a week and it has not come back.',
     name: 'Robert Masse',
     role: 'CEO',
     company: 'Astrolabe Analytics',
     avatar: robertMasse,
   },
   {
-    quote: 'DevOps that keeps our digital media running smoothly',
-    body: 'ScionTech helped us modernize our infrastructure and eliminate deployment bottlenecks. Their DevOps solutions brought speed, stability, and automation to our workflows - critical for a fast-paced digital media environment. We now operate with greater agility and confidence.',
+    quote: 'Deployments stopped being an event',
+    body: 'Before, a release meant a scheduled evening and someone on standby. After the container migration it became something we do during the working day without telling anyone. The cost came down as well, which was not really the point but nobody complained.',
     name: 'Brice Dunwoodie',
     role: 'CEO',
     company: 'Simplermedia Group',
@@ -53,16 +53,16 @@ export const TESTIMONIALS: Testimonial[] = [
     },
   },
   {
-    quote: 'A genuine game changer',
-    body: 'ScionTech transformed our infrastructure with their AWS DevOps expertise. Deployments are now faster, our systems more scalable, and downtime has dropped significantly. Their team was proactive, reliable, and aligned perfectly with our business goals.',
+    quote: 'Fewer incidents, and the ones we get make sense',
+    body: 'That is the whole review.',
     name: 'John Kennedy',
     role: 'CEO',
     company: 'EnigmaPlus',
     avatar: johnKennedy,
   },
   {
-    quote: 'Optimized DevOps for high-performance crypto trading',
-    body: 'ScionTech played a key role in strengthening the reliability and speed of our crypto trading platform. Their DevOps solutions on AWS streamlined our deployments, enhanced uptime, and gave us the confidence to scale securely in a fast-moving market. Their expertise made a measurable impact.',
+    quote: 'They told us what was wrong before we asked',
+    body: 'We brought them in for the trading platform. Partway through they came back with a list of things in the account we had not asked about and had not known were there - open ports, keys nobody had rotated, an admin user belonging to someone who left. Fixing that was not in the original scope. They raised it anyway, and we would rather have heard it from them than from somebody else.',
     name: 'Mohammed Ali',
     role: 'CEO',
     company: 'Eazybot',

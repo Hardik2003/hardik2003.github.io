@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { item, index, featured = false } = Astro.props;
-const { title, sector, summary, image, tags, results, client } = item.data;
+const { title, sector, summary, image, tags, results, client, engagementYear } = item.data;
 ---
 
 <article data-reveal data-reveal-delay={(index ?? 0) * 70} class="group">

@@ -6,6 +6,7 @@ summary: Re-engineering a legacy EC2 setup into containers on Fargate, cutting o
 image: ../../assets/work/digital-media-simplermedia.png
 date: 2025-06-02
 order: 4
+engagementYear: 2024
 tags: [SecurityHub, Containerization]
 stack: [Docker, AWS Fargate, CloudWatch, Jenkins, Terraform]
 results:
