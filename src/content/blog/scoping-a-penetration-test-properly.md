@@ -4,8 +4,8 @@ description: The difference between a vulnerability scan and a penetration test,
 pubDate: 2025-10-07
 category: Security
 author: Hardik Kamdar
-image: ../../assets/blog/penetration-testing-scope.png
-imageAlt: Concentric defensive boundaries with a probe path stopping at an inner layer
+image: ../../assets/blog/compliance-mapping.png
+imageAlt: Compliance framework impact from a real audit report, mapping confirmed findings to the SOC 2, ISO 27001, GDPR, CIS and NIST controls they breach.
 readingTime: 8
 ---
 

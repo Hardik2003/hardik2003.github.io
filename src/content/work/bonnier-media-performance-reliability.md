@@ -6,6 +6,7 @@ summary: Delivering sub-second load times and 99.9% uptime across two flagship p
 image: ../../assets/work/digital-media-bonnier.png
 date: 2025-06-02
 order: 5
+engagementYear: 2020
 tags: [Security firewall, Varnish]
 stack: [Varnish, EC2 Autoscaling, NFS, Terraform, CloudWatch]
 results:

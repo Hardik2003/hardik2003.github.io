@@ -6,6 +6,7 @@ summary: Cutting attack traffic by over 70% and lifting availability to 99.95%, 
 image: ../../assets/work/bot-trading.png
 date: 2025-06-02
 order: 3
+engagementYear: 2026
 tags: [Security, WAF]
 stack: [CDN, WAF, ELK Stack, Geo-replication, Private subnets]
 results:

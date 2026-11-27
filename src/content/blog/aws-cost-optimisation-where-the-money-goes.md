@@ -4,8 +4,8 @@ description: The five line items that dominate most AWS bills, why rightsizing i
 pubDate: 2025-06-18
 category: Cloud cost
 author: Hardik Kamdar
-image: ../../assets/blog/cloud-cost-optimisation.png
-imageAlt: A chart showing monthly cloud spend declining against a target threshold
+image: ../../assets/blog/priority-fixes.png
+imageAlt: "Six worked fixes from a real audit report, each with the console path, the CLI command and the time to apply. The idle NAT gateway shows a $32.85 monthly saving."
 readingTime: 8
 ---
 
