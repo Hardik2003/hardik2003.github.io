@@ -18,8 +18,15 @@ type Props = { item: CollectionEntry<'work'> };
 
 const { item } = Astro.props;
 const { Content } = await render(item);
-const { title, client, sector, summary, image, results, stack, tags, date, seoTitle, seoDescription } =
+const { title, client, sector, summary, image, results, stack, tags, date, engagementYear, seoTitle, seoDescription } =
   item.data;
+
+/*
+ * The same sector / client / year line as the card, and it matters more here:
+ * this is the page that states the outcomes, and an outcome with no date behind
+ * it is the detail a sceptical reader notices is missing.
+ */
+const meta = [sector, client, engagementYear].filter(Boolean);
 
 const others = (await getCollection('work'))
   .filter((w) => w.id !== item.id)
@@ -66,9 +73,14 @@ const schema = {
 
         <div class="max-w-3xl">
           <div class="flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.1em]">
-            <span class="text-accent-600">{sector}</span>
-            {client && <span class="text-ink-300">·</span>}
-            {client && <span class="text-ink-400">{client}</span>}
+            {
+              meta.map((part, i) => (
+                <>
+                  {i > 0 && <span class="text-ink-300">·</span>}
+                  <span class:list={[i === 0 ? 'text-accent-600' : 'text-ink-400']}>{part}</span>
+                </>
+              ))
+            }
           </div>
           <h1 class="heading-1 mt-4 text-balance">{title}</h1>
           <p class="lede mt-6 text-pretty">{summary}</p>

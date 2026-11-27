@@ -10,6 +10,17 @@ interface Props {
 
 const { item, index, featured = false } = Astro.props;
 const { title, sector, summary, image, tags, results, client, engagementYear } = item.data;
+
+/*
+ * Sector, client and year, with separators only between the parts that exist.
+ *
+ * Built as a list rather than as a run of conditionals because three optional
+ * fields produce eight combinations, and the previous pattern - a `&&` for the
+ * separator and another for the value - already had to repeat itself once per
+ * field. The year matters here: a case study that states an outcome with no
+ * timeline reads as invented, because a real engagement always has one.
+ */
+const meta = [sector, client, engagementYear].filter(Boolean);
 ---
 
 <article data-reveal data-reveal-delay={(index ?? 0) * 70} class="group">
@@ -35,9 +46,14 @@ const { title, sector, summary, image, tags, results, client, engagementYear } =
 
     <div class="mt-5">
       <div class="flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.1em]">
-        <span class="text-accent-600">{sector}</span>
-        {client && <span class="text-ink-300">·</span>}
-        {client && <span class="text-ink-400">{client}</span>}
+        {
+          meta.map((part, i) => (
+            <>
+              {i > 0 && <span class="text-ink-300">·</span>}
+              <span class:list={[i === 0 ? 'text-accent-600' : 'text-ink-400']}>{part}</span>
+            </>
+          ))
+        }
       </div>
 
       <h3
